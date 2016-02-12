@@ -1,0 +1,109 @@
+﻿@model AsiaticIndustries.Core.Models.Entity.CurrentUSDRateHistory
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "USD Master");
+    Layout = null;
+}
+@Html.Hidden("USDMasterModel", Common.SerializeObject(Model))
+<div class="col-lg-12">
+    <div class="panel">
+        <header class="panel-heading">
+            USD Master
+        </header>
+        <div class="panel-body">
+            <div class="row">
+                <form class="form-horizontal" role="form" id="frmUSDMaster">
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Current USD Rate</label>
+                        <div class="col-lg-6" data-ng-if="!USDMasterModel.IsEditMode" style="padding: 3px;">
+                            <span class="inline-block">1 dollar (1 $) = </span>
+                            <b data-ng-bind="USDMasterModel.CurrentUSDRate | number: 2" class="padding-right-5"></b>Ruppes
+                            <button class="btn btn-info inline-block" data-ng-click="EditUSDRate(USDMasterModel)" style="margin-left: 10px;">
+                                Change USD Rate
+                            </button>
+
+
+                        </div>
+
+                        <div class="col-lg-3 margin-top-10">
+                            <div class="pull-right"><a href="https://www.google.co.in/?gws_rd=ssl#q=dollar%20to%20rupee" target="_blank">Check Current USD Rate</a></div>
+
+                        </div>
+                        <div class="col-lg-6" data-ng-if="USDMasterModel.IsEditMode" style="padding: 3px;">
+                            @Html.TextBoxFor(m => m.CurrentUSDRate, new
+                                {
+                                    data_ng_model = "USDMasterModel.CurrentUSDRate",
+                                    @class = "form-control input-inline",
+                                    name = "CurrentUSDRate",
+                                    placeholder = "Ruppes",
+                                    focus = "true",
+                                    spacenotonfirst = "",
+                                    maxlength = "13",
+                                    step = "0.01"
+                                })
+                            @Html.ValidationMessageFor(m => m.CurrentUSDRate)
+                            <button type="submit" class="btn btn-info" data-ng-click="SaveUSDRate(USDMasterModel)" style="margin-left: 10px;">Update USD Rate</button>
+                        </div>
+                    </div>
+                    <hr />
+                </form>
+            </div>
+            <div>
+                <tabset>
+                    <tab heading="Graph View">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <br />
+                                <div id="jqChart" style="width: 700px; height: 300px;"></div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="Table View">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="panel" data-ng-if="TotalUSDMasterCount > 0">
+                                    <div class="panel-body table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th>
+                                                        <a href="javascript:;" data-ng-click="SortColumn('LastUpdatedName')">Name</a>
+                                                        <span class="sortorder" data-ng-show="predicate === 'LastUpdatedName'" data-ng-class="{reverse:reverse}"></span>
+                                                    </th>
+                                                    <th>
+                                                        <a href="javascript:;" data-ng-click="SortColumn('CurrentUSDRate')">Rate</a>
+                                                        <span class="sortorder" data-ng-show="predicate === 'CurrentUSDRate'" data-ng-class="{reverse:reverse}"></span>
+                                                    </th>
+                                                    <th>
+                                                        <a href="javascript:;" data-ng-click="SortColumn('ChangedDate')">Updated Date</a>
+                                                        <span class="sortorder" data-ng-show="predicate === 'ChangedDate'" data-ng-class="{reverse:reverse}"></span>
+                                                    </th>
+                                                </tr>
+                                                <tr dir-paginate="usd in USDMasterList  | itemsPerPage: PageSize" total-items="TotalUSDMasterCount" 
+                                                    current-page="pagination.current" pagination-id="usdmaster" data-ng-attr-class="{{usd.IsActive?'EnableBG':''}}" title="{{usd.IsActive?'Current Active USD Rate':''}}">
+                                                    <td>{{usd.Row}}</td>
+                                                    <td >{{usd.LastUpdatedName}}</td>
+                                                    <td>{{usd.CurrentUSDRate}}</td>
+                                                    <td>{{usd.ChangedDate}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="table-foot">
+                                            <dir-pagination-controls boundary-links="true" on-page-change="PageChanged(newPageNumber)" pagination-id="usdmaster"></dir-pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-ng-if="TotalUSDMasterCount <= 0" class="panel alert alert-block alert-danger">
+                                    No records found.
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

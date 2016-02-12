@@ -1,0 +1,31 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.DashboardModel
+@using AsiaticIndustries.Core.Resources
+@using AsiaticIndustries.Core.Infrastructure
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "Dashboard");
+    Layout = null;
+}
+@if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin)
+{ 
+    @Html.Hidden("USDMasterModel", Common.SerializeObject(Model.USDMasterList))
+    @Html.Partial("Partial/_Admin", Model)
+    
+}
+else if (SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep)
+{
+    @Html.Hidden("USDMasterModel", Common.SerializeObject(Model.USDMasterList))
+    @Html.Partial("Partial/_MarketingRep", Model)
+}
+else if (SessionHelper.SelectedRole.RoleID == Constants.Role_LA)
+{ 
+    @Html.Partial("Partial/_LA", Model)
+}
+else if (SessionHelper.SelectedRole.RoleID == Constants.Role_RawManager)
+{ 
+    @Html.Partial("Partial/_RawMaterialManager", Model)
+}
+else if (SessionHelper.SelectedRole.RoleID == Constants.Role_QuoteManager)
+{ 
+      @Html.Hidden("USDMasterModel", Common.SerializeObject(Model.USDMasterList))
+    @Html.Partial("Partial/_QuoteManager", Model)
+}

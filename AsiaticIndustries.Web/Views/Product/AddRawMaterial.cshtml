@@ -1,0 +1,64 @@
+﻿@model AsiaticIndustries.Core.Models.Entity.RawMaterial
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+
+@{
+    bool isEditMode = Model.RawMaterialID > 0;
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, isEditMode ? "Edit Raw Material" : "Add Raw Material");
+    Layout = null;
+}
+@Html.Hidden("RawMaterialModel", Common.SerializeObject(Model))
+
+<div class="col-lg-8">
+    <section class="panel">
+        <header class="panel-heading">
+            @string.Format("{0}", isEditMode ? "Edit Raw Material" : "Add Raw Material")
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal" id="frmAddRawMaterial" role="form">
+                <div class="form-group">
+                    @Html.LabelFor(a => a.RawMaterialName, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.RawMaterialName, new
+                   {
+                       data_ng_model = "RawMaterialModel.RawMaterialName",
+                       @class = "form-control",
+                       name = "RawMaterialName",
+                       placeholder = "Raw Material Name",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "100"
+                   })
+                        @Html.ValidationMessageFor(m => m.RawMaterialName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.RawMaterialPrice, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.RawMaterialPrice, new
+                   {
+                       data_ng_model = "RawMaterialModel.RawMaterialPrice",
+                       @class = "form-control",
+                       name = "RawMaterialPrice",
+                       placeholder = "Price",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "13"
+                   })
+                        @Html.ValidationMessageFor(m => m.RawMaterialPrice)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button id="btnSubmit" type="submit" class="btn btn-info" data-ng-click="SaveRawMaterial()">@string.Format("{0}", isEditMode ? "Save Raw Material" : "Add Raw Material")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    var pageTitle = '@ViewBag.Title';
+</script>

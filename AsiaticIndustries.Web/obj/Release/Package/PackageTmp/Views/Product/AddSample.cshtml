@@ -1,0 +1,159 @@
+﻿@model  AsiaticIndustries.Core.Models.ViewModel.ProductSampleAddModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+@{
+    bool isEditMode = Model.ProductSample.ProductSampleID > 0;
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, isEditMode ? "Edit Sample" : "Add Sample");
+    Layout = null;
+}
+
+@Html.Hidden("ProductSampleModel", Common.SerializeObject(Model))
+
+<span data-us-spinner="{radius:30, width:8, length: 16,scale:0.5}"></span>
+<div class="col-lg-8">
+    <section class="panel">
+        <header class="panel-heading">
+            @string.Format("{0}", isEditMode ? "Edit Sample" : "Add Sample")
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" id="frmAddProductSample">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductSample.ProductID, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+
+                        <div class="validate-group">
+                            @Html.TextBoxFor(m => m.ProductSample.ProductID,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductSampleModel.ProductID",
+                                                     @class = "form-control",
+                                                     name = "ProductID",
+                                                     placeholder = "",
+                                                     rows = "10",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     @style = "position:absolute;z-index:-1 !important;"
+                                                 })
+                            @Html.ValidationMessageFor(m => m.ProductSample.ProductID)
+
+                            <token_input  
+                                my-directive-var=ProductSampleModel.ProductID
+                                @*ng-model={{ProductSampleModel.ProductID}}*@
+                                value={{ProductSampleModel.ProductID}}
+                                textField='ProductName'
+                                valueField='StrProductID' 
+                                SearchUrl={{ProductSearchUrl}}
+                                onAddedCallback="OnProductAddedCallback"
+                                onDeleteCallback="OnProductDeletedCallback"
+                                onResultCallback="OnProductResultCallback"
+                                onResultsFormatter="OnProductResultsFormatter"
+                                propertyToSearch='ProductName'
+                                pre-populate=PrepopulateProducts
+                                placeholder='Search Product...'
+                                customClass='form-control'
+                                additionalFilterText='ignoreIds'
+                                additional-filter-value="ProductSampleModel.ProductID"
+                                enableCahing='false'
+                                tokenLimit="1"
+                                >
+                            
+                            </token_input>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductSample.ProductConstraints, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-2" style="padding-right: 0;">
+                        @Html.TextBoxFor(m => m.ProductSample.ProductConstraints,
+                                         new
+                                             {
+                                                 data_ng_model = "ProductSampleModel.ProductConstraints",
+                                                 @class = "form-control",
+                                                 name = "ProductConstraints",
+                                                 placeholder = "Concentration",
+                                                 focus = "true",
+                                                 spacenotonfirst = "",
+                                                 maxlength = 6
+                                             })
+                        @Html.ValidationMessageFor(m => m.ProductSample.ProductConstraints)
+                    </div>
+                    @Html.LabelFor(m => m.ProductSample.ReferenceNumber, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-5">
+                        @Html.TextBoxFor(m => m.ProductSample.ReferenceNumber,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductSampleModel.ReferenceNumber",
+                                                     @class = "form-control",
+                                                     name = "ReferenceNumber",
+                                                     placeholder = "AI Number",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 100
+                                                 })
+                        @Html.ValidationMessageFor(m => m.ProductSample.ReferenceNumber)
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductSample.AINumber, new { @class = "col-lg-2 col-sm-2 control-label" })
+                    <div class="col-lg-5">
+                        @Html.TextBoxFor(m => m.ProductSample.AINumber,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductSampleModel.AINumber",
+                                                     @class = "form-control",
+                                                     name = "AINumber",
+                                                     placeholder = "RK Number",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 100
+                                                 })
+                        @Html.ValidationMessageFor(m => m.ProductSample.AINumber)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ProductSample.Description, new { @class = "col-lg-2 col-sm-2 control-label" })
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(m => m.ProductSample.Description,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductSampleModel.Description",
+                                                     @class = "form-control",
+                                                     name = "Description",
+                                                     placeholder = "Description",
+                                                     rows = "10",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                 })
+                        @Html.ValidationMessageFor(m => m.ProductSample.Description)
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-info" data-ng-click="SaveProductSample()">@string.Format("{0}", isEditMode ? "Save Sample" : "Add Sample")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</div>
+<script type="text/javascript">
+    var pageTitle = '@ViewBag.Title';
+</script>

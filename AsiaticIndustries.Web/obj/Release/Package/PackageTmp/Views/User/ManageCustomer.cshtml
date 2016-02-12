@@ -1,0 +1,129 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.CustomerSearchModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "Customer List");
+    Layout = null;
+}
+@Html.Hidden("SearchCustomerModel", Common.SerializeObject(Model))
+<div class="col-md-12">
+    <div class="panel">
+        <header class="panel-heading">
+            Customer List
+        </header>
+        <div class="panel-body">
+            <div class="row">
+                <form>
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.Name, new
+                            {
+                                data_ng_model = "SearchCustomerModel.Name",
+                                @class = "form-control",
+                                name = "Name",
+                                placeholder = "Name",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "100"
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.Email, new
+                            {
+                                data_ng_model = "SearchCustomerModel.Email",
+                                @class = "form-control",
+                                name = "Email",
+                                placeholder = "Email",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "50"
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <button type="submit" data-ng-click="SearchCustomerRecords()" class="btn btn-default form-control">Search</button>
+                    </div>
+                </form>
+                <div class="col-md-2 col-xs-12 form-group pull-right">
+                    <a type="submit" class="btn btn-info form-control" href="@Constants.NgReturnUrl_AddCustomer">Add Customer</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div data-ng-if="TotalCustomerCount > 0" class="table-responsive">
+                        <table class="table table-bordered table-striped customeStripe">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('FirstName')">First Name</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'FirstName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('LastName')">Last Name</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'LastName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('Email')">Email</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Email'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('Phone')">Phone</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Phone'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('Address')">Address</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Address'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    
+                                     <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('StandardNumber')">Standard Number</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'StandardNumber'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th class="col-lg-2">Action</th>
+                                </tr>
+                                <tr dir-paginate="customer in CustomerList  | itemsPerPage: PageSize" total-items="TotalCustomerCount" current-page="pagination.current"
+                                    pagination-id="customer" data-ng-attr-class="{{customer.IsActive?'EnableItem':'DisableItem'}}">
+                                    <td>{{customer.Row}}</td>
+                                    <td>{{customer.FirstName}}</td>
+                                    <td>{{customer.LastName}}</td>
+                                    <td>{{customer.Email}}</td>
+                                    <td class="table-20">{{customer.Phone == null ? 'N/A' : customer.Phone}}</td>
+                                    <td class="table-20">{{customer.Address == null ? 'N/A' : customer.Address}}</td>
+                                    <td class="table-20">{{customer.StandardNumber == null ? 'N/A' : customer.StandardNumber}}</td>
+                                    <td>
+                                        <button data-ng-click="EditCustomer(customer.EncryptedCustomerID)" rel="tooltip" data-placement="top" title="Edit Customer"
+                                            class="btn btn-info">
+                                            Edit
+                                        </button>
+                                        <button data-ng-click="EnabledDisabledCustomer(customer)" rel="tooltip" title="{{customer.IsActive ? 'Disable Customer' : 'Enable Customer'}}"
+                                            data-placement="top" data-ng-class="{'btn-green': !customer.IsActive,'btn-danger': customer.IsActive }" class="btn">
+                                            {{customer.IsActive ? 'Disable' : 'Enable'}}
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="table-foot">
+                            <dir-pagination-controls boundary-links="true" on-page-change="PageChanged(newPageNumber)" pagination-id="customer"></dir-pagination-controls>
+                        </div>
+                    </div>
+                    <div data-ng-if="TotalCustomerCount <= 0" class="alert alert-block alert-danger">
+                        No records found.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+<script type="text/javascript">
+    window.EnableCustomer = '@Resource.EnableCustomer';
+    window.DisableCustomer = '@Resource.DisableCustomer';
+    window.SureToEnableCustomerMessage = '@Resource.SureToEnableCustomerMessage';
+    window.SureToDisableCustomerMessage = '@Resource.SureToDisableCustomerMessage';
+</script>

@@ -1,0 +1,134 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.UserSearchModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "User List");
+    Layout = null;
+}
+@Html.Hidden("SearchUserModel", Common.SerializeObject(Model))
+<div class="col-md-12">
+    <div class="panel">
+        <header class="panel-heading">
+            User List
+        </header>
+        <div class="panel-body">
+            <div class="row">
+                <form>
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.Name, new
+                            {
+                                data_ng_model = "SearchUserModel.Name",
+                                @class = "form-control",
+                                name = "Name",
+                                placeholder = "Name",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "100"
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.Email, new
+                            {
+                                data_ng_model = "SearchUserModel.Email",
+                                @class = "form-control",
+                                name = "Email",
+                                placeholder = "Email",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "50"
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        @Html.DropDownListFor(m => m.RoleID, Model.ListOfRole.ToSelectList(Model.RoleID.ToString(), "RoleName", "RoleID", "All Role", ""), new
+                            {
+                                @class = "form-control",
+                                data_ng_init = "SearchUserModel.RoleID=SearchUserModel.RoleID==0?null:SearchUserModel.RoleID",
+                                data_ng_model = "SearchUserModel.RoleID"
+
+                            })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="submit" data-ng-click="SearchUserRecords()" class="btn btn-default form-control">Search</button>
+                    </div>
+                </form>
+                <div class="col-md-2 col-xs-12 form-group pull-right">
+                    <a type="submit" class="btn btn-info form-control" href="@Constants.NgReturnUrl_AddUser">Add user</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div data-ng-if="TotalUserCount > 0" class="table-responsive">
+                        <table class="table table-bordered table-striped customeStripe">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('FirstName')">First Name</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'FirstName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('LastName')">Last Name</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'LastName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('Email')">Email</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Email'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('RoleName')">Role</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'RoleName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('Phone')">Phone</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Phone'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('Address')">Address</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Address'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th class="col-lg-2">Action</th>
+                                </tr>
+                                <tr dir-paginate="user in UserList  | itemsPerPage: PageSize" total-items="TotalUserCount" current-page="pagination.current" pagination-id="user" data-ng-attr-class="{{user.IsActive?'EnableItem':'DisableItem'}}">
+                                    <td>{{user.Row}}</td>
+                                    <td>{{user.FirstName}}</td>
+                                    <td>{{user.LastName}}</td>
+                                    <td class="td-15">{{user.Email}}</td>
+                                    <td>{{user.RoleName}}</td>
+                                    <td class="table-20">{{user.Phone == null ? 'N/A' : user.Phone}}</td>
+                                    <td class="table-20">{{user.Address == null ? 'N/A' : user.Address}}</td>
+                                    <td class="td-15">
+                                        <button data-ng-click="EditUser(user.EncryptedUserID)" rel="tooltip" data-placement="top" title="Edit User" class="btn btn-info">Edit</button>
+                                        <button data-ng-click="EnabledDisabledUser(user)" rel="tooltip" title="{{user.IsActive ? 'Disable User' : 'Enable User'}}"
+                                            data-placement="top" data-ng-class="{'btn-green': !user.IsActive,'btn-danger': user.IsActive }" class="btn">
+                                            {{user.IsActive ? 'Disable' : 'Enable'}}
+
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="table-foot">
+                            <dir-pagination-controls boundary-links="true" on-page-change="PageChanged(newPageNumber)" pagination-id="user"></dir-pagination-controls>
+                        </div>
+                    </div>
+                    <div data-ng-if="TotalUserCount <= 0" class="alert alert-block alert-danger">
+                        No records found.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+<script type="text/javascript">
+    window.EnableUser = '@Resource.EnableUser';
+    window.DisableUser = '@Resource.DisableUser';
+    window.SureToEnableUserMessage = '@Resource.SureToEnableUserMessage';
+    window.SureToDisableUserMessage = '@Resource.SureToDisableUserMessage';
+</script>

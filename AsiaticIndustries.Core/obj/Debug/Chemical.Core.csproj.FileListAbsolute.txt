@@ -1,0 +1,12 @@
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\Chemical.Core.dll
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\Chemical.Core.pdb
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\obj\Debug\Chemical.Core.dll
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\obj\Debug\Chemical.Core.pdb
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\obj\Debug\Chemical.Core.csprojResolveAssemblyReference.cache
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\obj\Debug\Chemical.Core.Resources.Resource.resources
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\obj\Debug\Chemical.Core.csproj.GenerateResource.Cache
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\BCrypt.Net.dll
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\BCrypt.Net.xml
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Vishal\Project\Chemical\trunk\Chemical.Core\bin\Debug\Elmah.dll

@@ -1,0 +1,86 @@
+﻿@using AsiaticIndustries.Core.Infrastructure
+<aside class="left-side sidebar-offcanvas">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="/Assets/images/26115.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+                <p>Hello, @SessionHelper.FirstName</p>
+                <a href="javascript:;"><i class="fa fa-circle text-success"></i>Online</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="@Constants.NgReturnUrl_Dashboard" active-link="active">
+                    <i class="fa fa-dashboard"></i><span>Dashboard</span>
+                </a>
+            </li>
+
+            @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep)
+            {
+                <li>
+                    <a href="@Constants.NgReturnUrl_ListCustomer" class="float-left" ><i class="fa fa-users"></i><span>Customers</span></a>
+                    <a href="@Constants.NgReturnUrl_ListCustomer" class="float-right" active-link="active"><i class="fa fa-list"></i></a>
+                    <a href="@Constants.NgReturnUrl_AddCustomer" class="float-right" active-link="active"><i class="fa fa-plus"></i></a>
+                </li>
+            }
+            
+
+            @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_RawManager)
+            {
+                <li>
+                    <a href="@Constants.NgReturnUrl_ListRawMaterial" class="float-left"><i class="fa fa-arrows-alt"></i><span>Raw Materials</span></a>
+                    <a href="@Constants.NgReturnUrl_ListRawMaterial" class="float-right" active-link="active"><i class="fa fa-list"></i></a>
+                    <a href="@Constants.NgReturnUrl_AddRawMaterial" class="float-right" active-link="active"><i class="fa fa-plus"></i></a>
+                </li>
+                
+                if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin)
+                {
+                <li>
+                    <a href="@Constants.NgReturnUrl_ListProduct" class="float-left"><i class="fa fa-tasks"></i><span>Products</span></a>
+                    <a href="@Constants.NgReturnUrl_ListProduct" class="float-right" active-link="active"><i class="fa fa-list"></i></a>
+                    <a href="@Constants.NgReturnUrl_AddProduct" class="float-right" active-link="active"><i class="fa fa-plus"></i></a>
+                </li>
+                }
+            }
+
+
+
+             @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep || SessionHelper.SelectedRole.RoleID == Constants.Role_LA || SessionHelper.SelectedRole.RoleID == Constants.Role_QuoteManager)
+             {
+                 <li>
+                     <a href="@Constants.NgReturnUrl_ListSample" class="float-left"><i class="fa fa-flask"></i><span>Samples</span></a>
+                     
+                     @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep || SessionHelper.SelectedRole.RoleID == Constants.Role_LA)
+                     {
+                         <a href="@Constants.NgReturnUrl_ListSample" class="float-right" active-link="active"><i class="fa fa-list"></i></a>
+                         <a href="@Constants.NgReturnUrl_AddSample" class="float-right" active-link="active"><i class="fa fa-plus"></i></a>
+                     }
+                 </li>
+             }
+
+
+
+            @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_QuoteManager)
+            {
+                <li>
+                    <a href="@Constants.NgReturnUrl_ListQuote" class="float-left"><i class="fa fa-file-o"></i><span>Quotes</span></a>
+                    <a href="@Constants.NgReturnUrl_ListQuote" class="float-right" active-link="active"><i class="fa fa-list"></i></a>
+                    <a href="@Constants.NgReturnUrl_AddQuote" class="float-right" active-link="active"><i class="fa fa-plus"></i></a>
+                </li>
+            }
+
+           @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_QuoteManager || SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep)
+            {
+                
+                <li>
+                    <a href="@Constants.NgReturnUrl_UsdMaster" active-link="active"><i class="fa fa-usd"></i><span>USD Master</span></a>
+                </li>
+            }
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

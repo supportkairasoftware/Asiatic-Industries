@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FirstNameMaxLength" xml:space="preserve">
+    <value>First name can not exceed 50 characters.</value>
+  </data>
+  <data name="FirstNameRequired" xml:space="preserve">
+    <value>First name is required.</value>
+  </data>
+  <data name="LastNameMaxLength" xml:space="preserve">
+    <value>Last name can not exceed 50 characters.</value>
+  </data>
+  <data name="LastNameRequired" xml:space="preserve">
+    <value>Last name is required.</value>
+  </data>
+  <data name="EmailInvalid" xml:space="preserve">
+    <value>Email address is invalid.</value>
+  </data>
+  <data name="EmailMaxLength" xml:space="preserve">
+    <value>Email can not exceed 50 characters.</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Email is required.</value>
+  </data>
+  <data name="PhoneMaxLength" xml:space="preserve">
+    <value>Phone can not exceed 200 characters.</value>
+  </data>
+  <data name="AddressMaxLength" xml:space="preserve">
+    <value>Address can not exceed 200 characters.</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Login Succeeded</value>
+  </data>
+  <data name="LoginSuccessMessage" xml:space="preserve">
+    <value>You have logged in successfully.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Login Failed</value>
+  </data>
+  <data name="UsernamePasswordIncorrect" xml:space="preserve">
+    <value>Sorry, We didn't recognize that username, password and host name(machine name)combination. please double-check and try again.</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>Oops something went wrong. We're working on getting this fixed as soon as we can. You may be able to try again.</value>
+  </data>
+  <data name="InactiveAccount" xml:space="preserve">
+    <value>Your account is not active.For any help please contact an administrator.</value>
+  </data>
+  <data name="RoleRequired" xml:space="preserve">
+    <value>Role is required.</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="ConfirmPasswordRequired" xml:space="preserve">
+    <value>Confirm Password is required.</value>
+  </data>
+  <data name="UserExistWithThisEmail" xml:space="preserve">
+    <value>This email address is already in use. Please try with any other email address.</value>
+  </data>
+  <data name="AsiaticIndustries" xml:space="preserve">
+    <value>Asiatic Industries | </value>
+  </data>
+  <data name="AdminOverHeadPriceInvalid" xml:space="preserve">
+    <value>Invalid Admin over head price (100%). Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="AdminOverHeadPriceMaxLength" xml:space="preserve">
+    <value>Admin over head price (100%)  can not exceed 13 characters. Price should contain max 10 digit left and 2 digit rigth to decimal point.</value>
+  </data>
+  <data name="AdminOverHeadPriceRequired" xml:space="preserve">
+    <value>Admin over head price (100%) is required.</value>
+  </data>
+  <data name="CrudePriceInvalid" xml:space="preserve">
+    <value>Invalid standard quantity.Quantity should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="CrudePriceMaxLength" xml:space="preserve">
+    <value>Standard quantity can not exceed 13 characters.Quantity should contain max 10 digit left and 2 digit right to decimal point. </value>
+  </data>
+  <data name="CrudePriceRequired" xml:space="preserve">
+    <value>Standard  quantity is required.</value>
+  </data>
+  <data name="MfgOverHeadPriceInvalid" xml:space="preserve">
+    <value>Invalid MFG over head price (100%). Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="MfgOverHeadPriceMaxLength" xml:space="preserve">
+    <value>MFG over head price (100%)  can not exceed 13 characters. Price should contain max 10 digit left and 2 digit rigth to decimal point.</value>
+  </data>
+  <data name="MfgOverHeadPriceRequired" xml:space="preserve">
+    <value>MFG over head price (100%) is required.</value>
+  </data>
+  <data name="NumberOfKgsRequired" xml:space="preserve">
+    <value>Raw material quantity(in Kg) is required.</value>
+  </data>
+  <data name="ProductNameMaxLength" xml:space="preserve">
+    <value>Product name can not exceed 100 charachters.</value>
+  </data>
+  <data name="ProductNameRequired" xml:space="preserve">
+    <value>Product name is required.</value>
+  </data>
+  <data name="ProfitPerKgInvalid" xml:space="preserve">
+    <value>Invalid profit per kg. Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="ProfitPerKgMaxLength" xml:space="preserve">
+    <value>Profit per kg  can not exceed 13 characters. Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="ProfitPerKgRequired" xml:space="preserve">
+    <value>Profit per kg is required.</value>
+  </data>
+  <data name="RawMaterialNameMaxLength" xml:space="preserve">
+    <value>Raw material name can not exceed 100 characters.</value>
+  </data>
+  <data name="RawMaterialNameRequired" xml:space="preserve">
+    <value>Raw material name is required.</value>
+  </data>
+  <data name="RawMaterialRequired" xml:space="preserve">
+    <value>Raw material is required.</value>
+  </data>
+  <data name="RawMaterialPriceRequired" xml:space="preserve">
+    <value>Raw material price is required.</value>
+  </data>
+  <data name="PasswordMaxLength" xml:space="preserve">
+    <value>Password must have 8-20 characters.</value>
+  </data>
+  <data name="ConfirmPasswordMaxLength" xml:space="preserve">
+    <value>Password must have 8-20 characters.</value>
+  </data>
+  <data name="PasswordAndConfirmPasswordDoNotMatch" xml:space="preserve">
+    <value>Password and confirm password do not match.</value>
+  </data>
+  <data name="PasswordConfirmPasswordProblem" xml:space="preserve">
+    <value>Password and confirm password are either not valid or not same.</value>
+  </data>
+  <data name="PasswordInvalid" xml:space="preserve">
+    <value>&lt;p&gt;Password must have 8-20 characters and include: &lt;p&gt;&lt;ul &gt;&lt;li&gt;One uppercase charachter&lt;/li&gt;&lt;li&gt;One number&lt;/li&gt;&lt;li&gt;One special character&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
+  <data name="ProfileUpdated" xml:space="preserve">
+    <value>Your profile is updated successfully.</value>
+  </data>
+  <data name="ProfileUpdatedTitle" xml:space="preserve">
+    <value>Profile Updated</value>
+  </data>
+  <data name="AddUserFailed" xml:space="preserve">
+    <value>Add User Failed</value>
+  </data>
+  <data name="AddUserSucceeded" xml:space="preserve">
+    <value>Add User Succeeded</value>
+  </data>
+  <data name="AddUserSuccessMessage" xml:space="preserve">
+    <value>User is added successfully.</value>
+  </data>
+  <data name="UpdateUserFailed" xml:space="preserve">
+    <value>User Update Failed</value>
+  </data>
+  <data name="UpdateUserSucceeded" xml:space="preserve">
+    <value>User Update Succeeded</value>
+  </data>
+  <data name="UpdateUserSuccesMessage" xml:space="preserve">
+    <value>User is updated successfully.</value>
+  </data>
+  <data name="CrudePricePerKgInvalid" xml:space="preserve">
+    <value>Invalid crude price. Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="CrudePricePerKgMaxLength" xml:space="preserve">
+    <value>Crude price  can not exceed 13 characters. Price should contain max 10 digit left and 2 digit rigth to decimal point. </value>
+  </data>
+  <data name="CrudePricePerKgRequired" xml:space="preserve">
+    <value>Crude price is required.</value>
+  </data>
+  <data name="TempProfitPerKgInvalid" xml:space="preserve">
+    <value>Invalid profit per kg. Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="TempProfitPerKgMaxLength" xml:space="preserve">
+    <value>Profit per kg  can not exceed 13 characters. Price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="TempProfitPerKgRequired" xml:space="preserve">
+    <value>Profit per kg is required.</value>
+  </data>
+  <data name="NumberOfKgsInvalid" xml:space="preserve">
+    <value>Invalid Kgs. It should contain max 5 digit left and 2 digit rigth to decimal point.</value>
+  </data>
+  <data name="NumberOfKgsMaxLength" xml:space="preserve">
+    <value>Value can not exceed 8 characters.  It should contain max 5 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="ProductSavedSuccefully" xml:space="preserve">
+    <value>Product saved successfully.</value>
+  </data>
+  <data name="UserDisabledSuccessfully" xml:space="preserve">
+    <value>User is disabled successfully.</value>
+  </data>
+  <data name="UserEnabledSuccessfully" xml:space="preserve">
+    <value>User is enabled successfully.</value>
+  </data>
+  <data name="AddCustomerFailed" xml:space="preserve">
+    <value>Add Customer Failed</value>
+  </data>
+  <data name="AddCustomerSucceeded" xml:space="preserve">
+    <value>Add Customer Succeeded</value>
+  </data>
+  <data name="AddCustomerSuccessMessage" xml:space="preserve">
+    <value>Customer is added successfully.</value>
+  </data>
+  <data name="CustomerDisabledSuccessfully" xml:space="preserve">
+    <value>Customer is disabled successfully,</value>
+  </data>
+  <data name="CustomerEnabledSuccessfully" xml:space="preserve">
+    <value>Customer is enabled successfully,</value>
+  </data>
+  <data name="ProductDisabledSuccessfully" xml:space="preserve">
+    <value>Product is disabled successfully.</value>
+  </data>
+  <data name="ProductEnabledSuccessfully" xml:space="preserve">
+    <value>Product is enabled successfully.</value>
+  </data>
+  <data name="UpdateCustomerFailed" xml:space="preserve">
+    <value>Customer Update Failed</value>
+  </data>
+  <data name="UpdateCustomerSucceeded" xml:space="preserve">
+    <value>Customer Update Succeeded</value>
+  </data>
+  <data name="UpdateCustomerSuccesMessage" xml:space="preserve">
+    <value>Customer is updated successfully.</value>
+  </data>
+  <data name="AddProductFailed" xml:space="preserve">
+    <value>Add Product Failed</value>
+  </data>
+  <data name="AddProductSampleFailed" xml:space="preserve">
+    <value>Add Product Sample Failed</value>
+  </data>
+  <data name="CustomerSavedSuccefully" xml:space="preserve">
+    <value>Customer is saved successfully.</value>
+  </data>
+  <data name="CustomerSaveSucceeded" xml:space="preserve">
+    <value>Customer Saved Succeeded</value>
+  </data>
+  <data name="DescriptionRequired" xml:space="preserve">
+    <value>Description is required.</value>
+  </data>
+  <data name="DisableCustomer" xml:space="preserve">
+    <value>Disable Customer</value>
+  </data>
+  <data name="DisableProduct" xml:space="preserve">
+    <value>Disable Product</value>
+  </data>
+  <data name="DisableProductSample" xml:space="preserve">
+    <value>Disable Product Sample</value>
+  </data>
+  <data name="DisableUser" xml:space="preserve">
+    <value>Disable User</value>
+  </data>
+  <data name="EnableCustomer" xml:space="preserve">
+    <value>Enable Customer</value>
+  </data>
+  <data name="EnableProduct" xml:space="preserve">
+    <value>Enable Product</value>
+  </data>
+  <data name="EnableProductSample" xml:space="preserve">
+    <value>Enable Product Sample</value>
+  </data>
+  <data name="EnableUser" xml:space="preserve">
+    <value>Enable User</value>
+  </data>
+  <data name="ProductConstraintsInvalid" xml:space="preserve">
+    <value>Invalid product concentration. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="ProductConstraintsMaxLength" xml:space="preserve">
+    <value>Product concentration  can not exceed 6 characters. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="ProductConstraintsRequired" xml:space="preserve">
+    <value>Product concentration is required.</value>
+  </data>
+  <data name="ProductDisableSucceeded" xml:space="preserve">
+    <value>Product Disable Succeeded</value>
+  </data>
+  <data name="ProductEnableSucceeded" xml:space="preserve">
+    <value>Product Enable Succeeded</value>
+  </data>
+  <data name="ProductExistWithThisProductName" xml:space="preserve">
+    <value>This product name is already in use. Please try with any other product name.</value>
+  </data>
+  <data name="ProductRequired" xml:space="preserve">
+    <value>Product is required.</value>
+  </data>
+  <data name="ProductSampleDisabledSuccessfully" xml:space="preserve">
+    <value>Sample is disabled successfully.</value>
+  </data>
+  <data name="ProductSampleDisableSucceeded" xml:space="preserve">
+    <value>Sample Disable Succeeded</value>
+  </data>
+  <data name="ProductSampleEnabledSuccessfully" xml:space="preserve">
+    <value>Sample is enabled successfully.</value>
+  </data>
+  <data name="ProductSampleEnableSucceeded" xml:space="preserve">
+    <value>Sample Enable Succeeded</value>
+  </data>
+  <data name="ProductSampleSavedSuccefully" xml:space="preserve">
+    <value>Sample saved successfully.</value>
+  </data>
+  <data name="ProductSampleSaveSucceeded" xml:space="preserve">
+    <value>Sample Save Succeeded</value>
+  </data>
+  <data name="ProductSaveSucceeded" xml:space="preserve">
+    <value>Product Save Succeeded</value>
+  </data>
+  <data name="ReferenceNumberMaxLength" xml:space="preserve">
+    <value>AI  number can not exceed 100 characters.</value>
+  </data>
+  <data name="ReferenceNumberRequired" xml:space="preserve">
+    <value>AI number is required.</value>
+  </data>
+  <data name="SureToDisableCustomerMessage" xml:space="preserve">
+    <value>Are you sure you would like to disable this customer?</value>
+  </data>
+  <data name="SureToDisableProductMessage" xml:space="preserve">
+    <value>Are you sure you would like to disable this product?</value>
+  </data>
+  <data name="SureToDisableUserMessage" xml:space="preserve">
+    <value>Are you sure you would like to disable this user?</value>
+  </data>
+  <data name="SureToEnableCustomerMessage" xml:space="preserve">
+    <value>Are you sure you would like to enable this customer?</value>
+  </data>
+  <data name="SureToEnableProductMessage" xml:space="preserve">
+    <value>Are you sure you would like to enable this product?</value>
+  </data>
+  <data name="SureToEnableUserMessage" xml:space="preserve">
+    <value>Are you sure you would like to enable this user?</value>
+  </data>
+  <data name="UpdateProductFailed" xml:space="preserve">
+    <value>Update Product Failed</value>
+  </data>
+  <data name="UpdateProductSampleFailed" xml:space="preserve">
+    <value>Update Product Sample Failed</value>
+  </data>
+  <data name="UserSavedSuccefully" xml:space="preserve">
+    <value>User is saved successfully.</value>
+  </data>
+  <data name="UserSaveSucceeded" xml:space="preserve">
+    <value>User Saved Succeeded</value>
+  </data>
+  <data name="ProductSampleExistWithThisReferenceNumber" xml:space="preserve">
+    <value>This refernce number is already in use. Please try with any other reference number.</value>
+  </data>
+  <data name="SureToDisableProductSampleMessage" xml:space="preserve">
+    <value>Are you sure you would like to disable this sample?</value>
+  </data>
+  <data name="SureToEnableProductSampleMessage" xml:space="preserve">
+    <value>Are you sure you would like to enable this sample?</value>
+  </data>
+  <data name="InterestRateInvalid" xml:space="preserve">
+    <value>Invalid interest rate.It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="InterestRateMaxLength" xml:space="preserve">
+    <value>Interest rate  can not exceed 6 characters. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="InterestRateRequired" xml:space="preserve">
+    <value>Interest rate is required.</value>
+  </data>
+  <data name="StandardForwardingCostInvalid" xml:space="preserve">
+    <value>Invalid forwarding quantity. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="StandardForwardingCostMaxLength" xml:space="preserve">
+    <value>Forwarding quantity can not exceed 13 characters. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="StandardForwardingCostRequired" xml:space="preserve">
+    <value>Forwarding quantity is required.</value>
+  </data>
+  <data name="StandardFreightCostInvalid" xml:space="preserve">
+    <value>Invalid freight quantity. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="StandardFreightCostMaxLength" xml:space="preserve">
+    <value>Freight quantity can not exceed 13 characters. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="StandardFreightCostRequired" xml:space="preserve">
+    <value>Freight quantity is required.</value>
+  </data>
+  <data name="TotalForwardingCostInvalid" xml:space="preserve">
+    <value>Invalid forwarding cost . It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="TotalForwardingCostMaxLength" xml:space="preserve">
+    <value>Forwarding cost  can not exceed 13 characters. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="TotalForwardingCostRequired" xml:space="preserve">
+    <value>Forwarding cost is required.</value>
+  </data>
+  <data name="TotalFreightCostInvalid" xml:space="preserve">
+    <value>Invalid freight cost . It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="TotalFreightCostMaxLength" xml:space="preserve">
+    <value>Freight cost  can not exceed 13 characters. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="TotalFreightCostRequired" xml:space="preserve">
+    <value>Freight cost is required.</value>
+  </data>
+  <data name="TotalInterestMonthInvalid" xml:space="preserve">
+    <value>Invalid month.</value>
+  </data>
+  <data name="TotalInterestMonthMaxLength" xml:space="preserve">
+    <value>Month can not exceed 4 characters.</value>
+  </data>
+  <data name="TotalInterestMonthRequired" xml:space="preserve">
+    <value>Month is required.</value>
+  </data>
+  <data name="QuoteDisabledSuccessfully" xml:space="preserve">
+    <value>Quote is disabled successfully.</value>
+  </data>
+  <data name="QuoteDisableSucceeded" xml:space="preserve">
+    <value>Quote Disable Succeeded</value>
+  </data>
+  <data name="QuoteEnabledSuccessfully" xml:space="preserve">
+    <value>Quote is enabled successfully.</value>
+  </data>
+  <data name="QuoteEnableSucceeded" xml:space="preserve">
+    <value>Quote Enable Succeeded</value>
+  </data>
+  <data name="QuoteSavedSuccefully" xml:space="preserve">
+    <value>Quote is saved succefully.</value>
+  </data>
+  <data name="QuoteSaveSucceeded" xml:space="preserve">
+    <value>Quote Save Succeeded</value>
+  </data>
+  <data name="SureToDisableQuoteMessage" xml:space="preserve">
+    <value>Are you sure you would like to disable this quote?</value>
+  </data>
+  <data name="SureToEnableQuoteMessage" xml:space="preserve">
+    <value>Are you sure you would like to enable this quote?</value>
+  </data>
+  <data name="CustomerRequired" xml:space="preserve">
+    <value>Customer is required.</value>
+  </data>
+  <data name="PackingCostInvalid" xml:space="preserve">
+    <value>Invalid packing cost. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="PackingCostMaxLength" xml:space="preserve">
+    <value>Packing cost  can not exceed 13 characters. It should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="PackingCostRequired" xml:space="preserve">
+    <value>Packing cost is required.</value>
+  </data>
+  <data name="ProductSampleRequired" xml:space="preserve">
+    <value>Sample is required.</value>
+  </data>
+  <data name="CurrentUSDRateRequired" xml:space="preserve">
+    <value>Current USD rate is required.</value>
+  </data>
+  <data name="CurrentUSDRateMaxLength" xml:space="preserve">
+    <value>Current USD rate  can not exceed 13 characters. USD rate should contain max 10 digit left and 2 digit right to decimal point. </value>
+  </data>
+  <data name="CurrentUSDRateInvalid" xml:space="preserve">
+    <value>Invalid current USD rate. current USD rate should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="USDRateSavedSuccefully" xml:space="preserve">
+    <value>USD rate is saved successfully.</value>
+  </data>
+  <data name="USDRateSaveSucceeded" xml:space="preserve">
+    <value>USD Rate Saved Succeeded</value>
+  </data>
+  <data name="USDRateInvalid" xml:space="preserve">
+    <value>USD rate is invalid</value>
+  </data>
+  <data name="RawMaterialPriceMaxLength" xml:space="preserve">
+    <value>Raw material price can not exceed 13 characters. raw material price should contain max 10 digit left and 2 digit right to decimal point. </value>
+  </data>
+  <data name="RawMaterialPriceInvalid" xml:space="preserve">
+    <value>Invalid raw material price. raw material price should contain max 10 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="RawMaterialSavedSuccefully" xml:space="preserve">
+    <value>Raw material is saved successfully.</value>
+  </data>
+  <data name="RawMaterialSaveSucceeded" xml:space="preserve">
+    <value>Raw Material Saved Succeeded</value>
+  </data>
+  <data name="SureToDisableRawMaterialMessage" xml:space="preserve">
+    <value>Are you sure you would like to disable this raw material?</value>
+  </data>
+  <data name="SureToEnableRawMaterialMessage" xml:space="preserve">
+    <value>Are you sure you would like to enable this raw material?</value>
+  </data>
+  <data name="RawMaterialEnabledSuccessfully" xml:space="preserve">
+    <value>Raw material is enabled successfully.</value>
+  </data>
+  <data name="RawMaterialEnableSucceeded" xml:space="preserve">
+    <value>Raw Material Enable Succeeded</value>
+  </data>
+  <data name="RawMaterialDisabledSuccessfully" xml:space="preserve">
+    <value>Raw material is disabled successfully.</value>
+  </data>
+  <data name="RawMaterialDisableSucceeded" xml:space="preserve">
+    <value>Raw Material Disable Succeeded</value>
+  </data>
+  <data name="CustomerEnableSucceeded" xml:space="preserve">
+    <value>Customer Enable Succeeded</value>
+  </data>
+  <data name="CustomerDisableSucceeded" xml:space="preserve">
+    <value>Customer Disable Succeeded</value>
+  </data>
+  <data name="UserEnableSucceeded" xml:space="preserve">
+    <value>User Enable Succeeded</value>
+  </data>
+  <data name="UserDisableSucceeded" xml:space="preserve">
+    <value>User Disable Succeeded</value>
+  </data>
+  <data name="DisableRawMaterial" xml:space="preserve">
+    <value>Disable Raw Material</value>
+  </data>
+  <data name="EnableRawMaterial" xml:space="preserve">
+    <value>Enable Raw Material</value>
+  </data>
+  <data name="AddRawMaterialFailed" xml:space="preserve">
+    <value>Add Raw Material Failed</value>
+  </data>
+  <data name="UpdateRawMaterialFailed" xml:space="preserve">
+    <value>Raw Material Update Failed</value>
+  </data>
+  <data name="RawMaterialExistWithThisName" xml:space="preserve">
+    <value>This raw material name is already in use. Please try with any other raw material name.</value>
+  </data>
+  <data name="USDRateSavedFailed" xml:space="preserve">
+    <value>Save USD Rate Failed</value>
+  </data>
+  <data name="EnterDifferentUSDRate" xml:space="preserve">
+    <value>Please enter different usd rate.</value>
+  </data>
+  <data name="DisableQuote" xml:space="preserve">
+    <value>Disable Quote</value>
+  </data>
+  <data name="EnableQuote" xml:space="preserve">
+    <value>Enable Quote</value>
+  </data>
+  <data name="StandardNumberMaxLength" xml:space="preserve">
+    <value>Standard number can not exceed 100 characters.</value>
+  </data>
+  <data name="AINumberMaxLength" xml:space="preserve">
+    <value>RK number can not exceed 100 characters.</value>
+  </data>
+  <data name="AINumberRequired" xml:space="preserve">
+    <value>RK number is required.</value>
+  </data>
+  <data name="CommissionInvalid" xml:space="preserve">
+    <value>Invalid commision. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="CommissionMaxLength" xml:space="preserve">
+    <value>Commission  can not exceed 6 characters. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="DiscountPercentInvalid" xml:space="preserve">
+    <value>Invalid discount percent.It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="DiscountPercentMaxLength" xml:space="preserve">
+    <value>Discount percent can not exceed 6 characters. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="DiscountReasonInvalid" xml:space="preserve">
+    <value>Invalid discount reason.It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="DiscountReasonMaxLength" xml:space="preserve">
+    <value>Discount reason can not exceed 6 characters. It should contain max 3 digit left and 2 digit right to decimal point.</value>
+  </data>
+  <data name="LicenceExpiredMessage" xml:space="preserve">
+    <value>Your license has expired. To keep your account up to date please renew your license.</value>
+  </data>
+  <data name="LicenceExpiredTitle" xml:space="preserve">
+    <value>Activation Error</value>
+  </data>
+  <data name="HostNameMaxLength" xml:space="preserve">
+    <value>Host name can not exceed 100 characters.</value>
+  </data>
+  <data name="HostNameRequired" xml:space="preserve">
+    <value>Host name is required.</value>
+  </data>
+</root>

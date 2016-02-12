@@ -1,0 +1,273 @@
+﻿@model  AsiaticIndustries.Core.Models.ViewModel.ProductAddModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+@{
+    bool isEditMode = Model.Product.ProductID > 0;
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, isEditMode ? "Edit Product" : "Add Product");
+    Layout = null;
+}
+
+@Html.Hidden("ProductModel", Common.SerializeObject(Model))
+
+<span data-us-spinner="{radius:30, width:8, length: 16,scale:0.5}"></span>
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            @string.Format("{0}", isEditMode ? "Edit Product" : "Add Product")
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" id="frmAddProduct">
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.Product.ProductName, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(m => m.Product.ProductName,
+                                         new
+                                         {
+                                             data_ng_model = "ProductModel.ProductName",
+                                             data_enter_click = "SaveProduct()",
+                                             @class = "form-control",
+                                             name = "ProductName",
+                                             placeholder = "Product Name",
+                                             focus = "true",
+                                             spacenotonfirst = "",
+                                             maxlength = 100
+                                         })
+                        @Html.ValidationMessageFor(m => m.Product.ProductName)
+                    </div>
+
+                </div>
+                <div class="form-group" data-ng-if="ProductModel.ProductID==0">
+                    <label for="thirparty" class="col-lg-2 col-sm-2 control-label"></label>
+                    <div class="col-lg-6">
+                        <input type="checkbox" id="thirpartyProduct" data-ng-model="ProductModel.IsThirdPartyProduct">
+                        @Html.LabelFor(m => m.Product.IsThirdPartyProduct, new { @class = "control-label" })
+                    </div>
+                </div>
+
+                <div data-ng-show="ProductModel.IsThirdPartyProduct">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Product.CrudePricePerKg, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.Product.CrudePricePerKg,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductModel.CrudePricePerKg",
+                                                     @class = "form-control",
+                                                     name = "CrudePrice",
+                                                     placeholder = "Crude Price",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 13
+                                                 })
+                            @Html.ValidationMessageFor(m => m.Product.CrudePricePerKg)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Product.TempProfitPerKg, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.Product.TempProfitPerKg,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductModel.TempProfitPerKg",
+                                                     @class = "form-control",
+                                                     name = "TempProfitPerKg",
+                                                     placeholder = "Profit/Kg",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 13
+                                                 })
+                            @Html.ValidationMessageFor(m => m.Product.TempProfitPerKg)
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div data-ng-hide="ProductModel.IsThirdPartyProduct">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Product.CrudePrice, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.Product.CrudePrice,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductModel.CrudePrice",
+                                                     @class = "form-control",
+                                                     name = "CrudePrice",
+                                                     placeholder = "Standard Quantity",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 13
+                                                     
+                                                 })
+                            @Html.ValidationMessageFor(m => m.Product.CrudePrice)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Product.ProfitPerKg, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.Product.ProfitPerKg,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductModel.ProfitPerKg",
+                                                     @class = "form-control",
+                                                     name = "ProfitPerKg",
+                                                     placeholder = "Profit/Kg",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 13
+                                                 })
+                            @Html.ValidationMessageFor(m => m.Product.ProfitPerKg)
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Product.MfgOverHeadPrice, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.Product.MfgOverHeadPrice,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductModel.MfgOverHeadPrice",
+                                                     @class = "form-control",
+                                                     name = "MfgOverHeadPrice",
+                                                     placeholder = "MFG Over Head Price",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 13
+                                                 })
+                            @Html.ValidationMessageFor(m => m.Product.MfgOverHeadPrice)
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Product.AdminOverHeadPrice, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(m => m.Product.AdminOverHeadPrice,
+                                             new
+                                                 {
+                                                     data_ng_model = "ProductModel.AdminOverHeadPrice",
+                                                     @class = "form-control",
+                                                     name = "AdminOverHeadPrice",
+                                                     placeholder = "Admin Over Head Price",
+                                                     focus = "true",
+                                                     spacenotonfirst = "",
+                                                     maxlength = 13
+                                                 })
+                            @Html.ValidationMessageFor(m => m.Product.AdminOverHeadPrice)
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <a class="btn btn-default" data-ng-click="AddNewRawMaterilal()"><i class="fa fa-plus"></i>&nbsp; Add Raw Materials</a>
+                        </div>
+                    </div>
+                    <div class="form-group" data-ng-show="ListOfProductItem.length>0">
+                        <div class="col-lg-offset-2 col-lg-6">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th class="col-lg-1">#</th>
+                                        <th class="col-lg-5">Raw Material</th>
+                                        <th class="col-lg-3"># of Kgs</th>
+                                        <th style="width: 40px">Price/Kg</th>
+                                        <th style="width: 40px">Total Price</th>
+                                        <th style="width: 40px">Action</th>
+                                    </tr>
+
+                                    <tr data-ng-repeat="ProductItem in ListOfProductItem">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            @* <span>{{ProductItem.RawMaterialID}}</span>*@
+                                            @Html.DropDownListFor(m => m.TempRawMaterialId, Model.ListOfRawMaterial.ToSelectList(Model.TempRawMaterialId.ToString(), "RawMaterialName", "RawMaterialID", "Select"), new
+                                                {
+                                                    @class = "form-control",
+                                                    value="{{ProductItem.RawMaterialID}}",
+                                                    data_ng_init = "ProductItem.RawMaterialID = ProductItem.RawMaterialID == undefined ? '0' : ProductItem.RawMaterialID",
+                                                    data_ng_model = "ProductItem.RawMaterialID",
+                                                    data_ng_attr_id = "{{ 'TempRawMaterialId-' + $index }}",
+                                                    data_ng_attr_name = "{{ 'TempRawMaterialId-' + $index }}",
+                                                })
+
+                                            @Html.ValidationMessageFor(m => m.TempRawMaterialId, "",
+                                                                       new
+                                                                           {
+                                                                               data_ng_attr_id = "{{ 'TempRawMaterialId-' + $index }}",
+                                                                               data_ng_attr_name = "{{ 'TempRawMaterialId-' + $index }}",
+                                                                               data_ng_attr_data_valmsg_for = "{{ 'TempRawMaterialId-' + $index }}",
+                                                                           }
+                                                 )
+
+                                        </td>
+                                        <td>
+
+                                            @Html.TextBoxFor(m => m.TempNumberOfKgs, new
+                                                {
+                                                    data_ng_model = "ProductItem.NumberOfKgs",
+                                                    data_ng_attr_id = "{{ 'TempNumberOfKgs-' + $index }}",
+                                                    data_ng_attr_name = "{{ 'TempNumberOfKgs-' + $index }}",
+                                                    @class = "form-control",
+                                                    name = "NumberOfKgs",
+                                                    placeholder = "# of Kgs",
+                                                    focus = "true",
+                                                    spacenotonfirst = "",
+                                                    maxlength = 9
+
+                                                })
+                                            @Html.ValidationMessageFor(m => m.TempNumberOfKgs, "", new
+                                                {
+                                                    data_ng_attr_id = "{{ 'TempNumberOfKgs-' + $index }}",
+                                                    data_ng_attr_name = "{{ 'TempNumberOfKgs-' + $index }}",
+                                                    data_ng_attr_data_valmsg_for = "{{ 'TempNumberOfKgs-' + $index }}",
+                                                }
+                                                 )
+
+
+                                        </td>
+                                        <td>
+                                            <label class="margin-top-5">{{(ListOfRawMaterial | filter:{RawMaterialID:ProductItem.RawMaterialID*1}:true)[0].RawMaterialPrice| number:2}}</label>
+                                        </td>
+                                        <td>
+                                            @*<span>{{ProductItem.RawMaterialID}}</span>*@
+                                            <label  class="margin-top-5">{{(ListOfRawMaterial | filter:{RawMaterialID:ProductItem.RawMaterialID*1}:true)[0].RawMaterialPrice * ProductItem.NumberOfKgs| number:2}}</label>
+                                        </td>
+                                        <td><a class="btn btn-danger btn-circle" data-ng-click="RemoveRawMaterilal($index)"><i class="fa fa-times"></i></a></td>
+                                    </tr>
+                                   
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" data-ng-show="ListOfProductItem.length>1">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <a class="btn btn-default" data-ng-click="AddNewRawMaterilal()"><i class="fa fa-plus"></i>&nbsp; Add Raw Materials</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-info" style="padding: 6px 24px;font-size:20px;" data-ng-click="SaveProduct()"> @string.Format("{0}", isEditMode ? "Save Product" : "Add Product")</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </section>
+
+</div>
+<script type="text/javascript">
+    var pageTitle = '@ViewBag.Title';
+</script>

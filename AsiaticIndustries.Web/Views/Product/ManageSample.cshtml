@@ -1,0 +1,169 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.ProductSampleSearchModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "Sample List");
+    Layout = null;
+}
+@Html.Hidden("SearchProductSampleModel", Common.SerializeObject(Model))
+<div class="col-md-12">
+    <div class="panel">
+        <header class="panel-heading">
+            Sample List
+        </header>
+
+        <div class="panel-body">
+
+            <div class="row">
+                <form>
+                    @* <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.CustomerName, new
+                        {
+                            data_ng_model = "SearchProductSampleModel.CustomerName",
+                            @class = "form-control",
+                            name = "Name",
+                            placeholder = "Customer Name",
+                            focus = "true",
+                            spacenotonfirst = ""
+                        })
+                    </div>*@
+
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.ReferenceNumber, new
+                        {
+                            data_ng_model = "SearchProductSampleModel.ReferenceNumber",
+                            @class = "form-control",
+                            name = "Name",
+                            placeholder = "AI Number",
+                            focus = "true",
+                            spacenotonfirst = ""
+                        })
+                    </div>
+
+
+                    <div class="col-md-3 form-group">
+                        <token_input  
+                        my-directive-var="SearchProductSampleModel.StrProductIDs"
+                        @*ng-model={{ProductSampleModel.ProductID}}*@
+                        value={{SearchProductSampleModel.ProductIDs}}
+                        textField='ProductName'
+                        valueField='StrProductID' 
+                        SearchUrl={{ProductSearchUrl}}
+                        onAddedCallback="OnProductAddedCallback"
+                        onDeleteCallback="OnProductDeletedCallback"
+                        onResultCallback="OnProductResultCallback"
+                        onResultsFormatter="OnProductResultsFormatter"
+                        propertyToSearch='ProductName'
+                        @*pre-populate="PrepopulateProducts"*@
+                        placeholder='Search Product...'
+                        customClass='form-control'
+                        additionalFilterText='ignoreIds'
+                        additional-filter-value="SearchProductSampleModel.StrProductIDs"
+                        enableCahing='false'
+                        @* tokenLimit="1"*@
+                        >
+                            
+                    </token_input>
+                    </div>
+
+
+
+                    <div class="col-md-2 form-group">
+                        <button type="submit" data-ng-click="SearchProductSampleRecords()" class="btn btn-default form-control">Search</button>
+                    </div>
+                </form>
+                @if (SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep || SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_LA)
+                                    {
+                    <div class="col-md-2 col-xs-12 form-group pull-right">
+                        <a class="btn btn-info form-control" href="@Constants.NgReturnUrl_AddSample">Add Sample</a>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div data-ng-if="TotalProductSampleCount > 0" class="table-responsive">
+                        <table class="table table-bordered table-striped customeStripe">
+                             <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('ProductName')">Product</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'ProductName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('ReferenceNumber')">AI #</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'ReferenceNumber'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('AINumber')">RK #</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'AINumber'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('ProductConstraints')">Concentration</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'ProductConstraints'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+
+                                    <th class="col-lg-5">
+                                        <a href="javascript:;" data-ng-click="SortColumn('Description')">Description</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'Description'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('CheckedBy')">Checked By</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'CheckedBy'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    @if (SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep || SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_LA)
+                                    {
+                                        <th class="col-lg-2">Action</th>
+                                    }
+                                </tr>
+                            
+                                <tr dir-paginate="productSample in ProductSampleList | itemsPerPage: PageSize" total-items="TotalProductSampleCount" current-page="pagination.current" pagination-id="product" data-ng-attr-class="{{productSample.IsActive?'EnableItem':'DisableItem'}}">
+                                    <td>{{productSample.Row}}</td>
+                                    <td>{{productSample.ProductName}}</td>
+                                    <td>{{productSample.ReferenceNumber }}</td>
+                                    <td>{{productSample.AINumber }}</td>
+                                    <td>{{productSample.ProductConstraints|number:2 }}<span>&nbsp;%</span></td>
+
+                                    <td>
+                                        <div shorten="">{{productSample.Description == null ? 'N/A' : productSample.Description}}</div>
+                                    </td>
+                                    <td>{{productSample.CheckedBy}}</td>
+                                    @if (SessionHelper.SelectedRole.RoleID == Constants.Role_MarketingRep || SessionHelper.SelectedRole.RoleID == Constants.Role_Admin || SessionHelper.SelectedRole.RoleID == Constants.Role_LA)
+                                    {
+                                        <td>
+                                            <button data-ng-click="EditProductSample(productSample.EncryptedProductSampleID)" rel="tooltip" data-placement="top" title="Edit Sample" class="btn btn-info">Edit</button>
+                                            <button data-ng-click="EnabledDisabledProductSample(productSample)" rel="tooltip" data-placement="top" title="{{productSample.IsActive ? 'Disable Sample' : 'Enable Sample'}}" data-ng-class="{'btn-green': !productSample.IsActive,'btn-danger': productSample.IsActive }" class="btn">{{productSample.IsActive ? 'Disable' : 'Enable'}}</button>
+                                        </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="table-foot">
+                            <dir-pagination-controls boundary-links="true" on-page-change="PageChanged(newPageNumber)" pagination-id="product"></dir-pagination-controls>
+                        </div>
+                    </div>
+                    <div data-ng-if="TotalProductSampleCount <= 0" class="alert alert-block alert-danger">
+                        No records found.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.panel-body -->
+
+    </div>
+    <!-- /.panel -->
+
+</div>
+
+<script type="text/javascript">
+    window.EnableProductSample = '@Resource.EnableProductSample';
+    window.DisableProductSample = '@Resource.DisableProductSample';
+    window.SureToEnableProductSampleMessage = '@Resource.SureToEnableProductSampleMessage';
+    window.SureToDisableProductSampleMessage = '@Resource.SureToDisableProductSampleMessage';
+</script>

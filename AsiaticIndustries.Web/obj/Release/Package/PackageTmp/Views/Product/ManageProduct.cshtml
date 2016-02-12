@@ -1,0 +1,121 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.ProductSearchModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "Product List");
+    Layout = null;
+}
+@Html.Hidden("SearchProductModel", Common.SerializeObject(Model))
+<div class="col-md-12">
+    <div class="panel">
+        <header class="panel-heading">
+            Product List
+        </header>
+        <div class="panel-body">
+            <div class="row">
+                <form>
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.ProductName, new
+                            {
+                                data_ng_model = "SearchProductModel.ProductName",
+                                @class = "form-control",
+                                name = "Name",
+                                placeholder = "Product Name",
+                                focus = "true",
+                                spacenotonfirst = ""
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+
+                        @Html.DropDownListFor(m => m.RawMaterialID, Model.ListOfRawMaterial.ToSelectList(Model.RawMaterialID.ToString(), "RawMaterialName", "RawMaterialID", "Select Raw Material"), new
+                            {
+                                @class = "form-control",
+                                data_ng_init = "SearchProductModel.RawMaterialID=SearchProductModel.RawMaterialID== '0' ? '0' :SearchProductModel.RawMaterialID",
+                                data_ng_model = "SearchProductModel.RawMaterialID"
+
+                            })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="submit" data-ng-click="SearchProductRecords()" class="btn btn-default form-control">Search</button>
+                    </div>
+                </form>
+                <div class="col-md-2 col-xs-12 form-group pull-right">
+                    <a type="submit" class="btn btn-info form-control" href="@Constants.NgReturnUrl_AddProduct">Add Product</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div data-ng-if="TotalProductCount > 0" class="table-responsive">
+                        <table class="table table-bordered table-striped customeStripe">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('ProductName')">Product Name</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'ProductName'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('CrudePrice')">Crude Quantity</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'CrudePrice'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('ProfitPerKg')">Profit/Kg</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'ProfitPerKg'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('MfgOverHeadPrice')">MFG OH Price</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'MfgOverHeadPrice'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('AdminOverHeadPrice')">ADMIN OH Price</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'AdminOverHeadPrice'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="javascript:;" data-ng-click="SortColumn('IsThirdPartyProduct')">3rd Party Product</a>
+                                        <span class="sortorder" data-ng-show="predicate === 'IsThirdPartyProduct'" data-ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                           
+                                <tr dir-paginate="product in ProductList  | itemsPerPage: PageSize" total-items="TotalProductCount" current-page="pagination.current" pagination-id="product" data-ng-attr-class="{{product.IsActive?'EnableItem':'DisableItem'}}">
+                                    <td>{{product.Row}}</td>
+                                    <td>{{product.ProductName}}</td>
+                                    <td>{{product.CrudePrice |number:2}}</td>
+                                    <td>{{product.ProfitPerKg|number:2}}</td>
+                                    <td>{{product.MfgOverHeadPrice|number:2}}</td>
+                                    <td>{{product.AdminOverHeadPrice|number:2}}</td>
+                                    <td>{{product.IsThirdPartyProduct?'Yes':'No'}}</td>
+                                    <td>
+                                        <button data-ng-click="EditProduct(product.EncryptedProductID)" rel="tooltip" data-placement="top" title="Edit Product" class="btn btn-info">Edit</button>
+                                        <button data-ng-click="EnabledDisabledProduct(product)" rel="tooltip" data-placement="top" title="{{product.IsActive ? 'Disable Product' : 'Enable Product'}}" data-ng-class="{'btn-green': !product.IsActive,'btn-danger': product.IsActive }" class="btn">{{product.IsActive ? 'Disable' : 'Enable'}}</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="table-foot">
+                            <dir-pagination-controls boundary-links="true" on-page-change="PageChanged(newPageNumber)" pagination-id="product"></dir-pagination-controls>
+                        </div>
+                    </div>
+                    <div data-ng-if="TotalProductCount <= 0" class="alert alert-block alert-danger">
+                        No records found.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.panel-body -->
+
+    </div>
+    <!-- /.panel -->
+
+</div>
+
+<script type="text/javascript">
+    window.EnableProduct = '@Resource.EnableProduct';
+    window.DisableProduct = '@Resource.DisableProduct';
+    window.SureToEnableProductMessage = '@Resource.SureToEnableProductMessage';
+    window.SureToDisableProductMessage = '@Resource.SureToDisableProductMessage';
+</script>

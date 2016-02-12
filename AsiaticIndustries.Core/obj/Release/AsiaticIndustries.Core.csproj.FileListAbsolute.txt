@@ -1,0 +1,11 @@
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\AsiaticIndustries.Core.dll
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\AsiaticIndustries.Core.pdb
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\BCrypt.Net.dll
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\Elmah.dll
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\Newtonsoft.Json.dll
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\BCrypt.Net.xml
+D:\projects\chemical\trunk\AsiaticIndustries.Core\bin\Release\Newtonsoft.Json.xml
+D:\projects\chemical\trunk\AsiaticIndustries.Core\obj\Release\AsiaticIndustries.Core.Resources.Resource.resources
+D:\projects\chemical\trunk\AsiaticIndustries.Core\obj\Release\AsiaticIndustries.Core.csproj.GenerateResource.Cache
+D:\projects\chemical\trunk\AsiaticIndustries.Core\obj\Release\AsiaticIndustries.Core.dll
+D:\projects\chemical\trunk\AsiaticIndustries.Core\obj\Release\AsiaticIndustries.Core.pdb

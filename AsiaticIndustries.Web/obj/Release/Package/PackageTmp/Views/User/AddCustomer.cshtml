@@ -1,0 +1,137 @@
+﻿@model AsiaticIndustries.Core.Models.Entity.Customer
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+
+@{
+    bool isEditMode = Model.CustomerID > 0;
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, isEditMode ? "Edit Customer" : "Add Customer");
+    Layout = null;
+}
+
+@Html.Hidden("CustomerModel", Common.SerializeObject(Model))
+<span data-us-spinner="{radius:30, width:8, length: 16,scale:0.5}"></span>
+<div class="col-lg-8">
+    <section class="panel">
+        <header class="panel-heading">
+            @string.Format("{0}", isEditMode ? "Edit Customer" : "Add Customer")
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal" id="frmAddCustomer" role="form">
+                <div class="form-group">
+                    @Html.LabelFor(a => a.FirstName, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.FirstName, new
+                   {
+                       data_ng_model = "CustomerModel.FirstName",
+                       @class = "form-control",
+                       name = "FirstName",
+                       placeholder = "First Name",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "50"
+                   })
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.LastName, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.LastName, new
+                   {
+                       data_ng_model = "CustomerModel.LastName",
+                       @class = "form-control",
+                       name = "LastName",
+                       placeholder = "Last Name",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "50"
+                   })
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Email, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.Email, new
+                   {
+                       data_ng_model = "CustomerModel.Email",
+                       @class = "form-control",
+                       name = "Email",
+                       placeholder = "Email",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "50"
+                   })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Phone, new { @class = "col-lg-2 col-sm-2 control-label" })
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(m => m.Phone, new
+                   {
+                       data_ng_model = "CustomerModel.Phone",
+                       @class = "form-control",
+                       rows = "3",
+                       name = "Phone",
+                       placeholder = "Phone",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "200"
+                   })
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Address, new { @class = "col-lg-2 col-sm-2 control-label" })
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(m => m.Address, new
+                            {
+                                data_ng_model = "CustomerModel.Address",
+                                @class = "form-control",
+                                rows = "5",
+                                name = "Address",
+                                placeholder = "Address",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "200"
+                            })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                </div>
+                
+                
+                
+                 <div class="form-group">
+                    @Html.LabelFor(a => a.StandardNumber, new { @class = "col-lg-2 col-sm-2 control-label" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.StandardNumber, new
+                   {
+                       data_ng_model = "CustomerModel.StandardNumber",
+                       @class = "form-control",
+                       name = "StandardNumber",
+                       placeholder = "Standard Number",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "100"
+                   })
+                        @Html.ValidationMessageFor(m => m.StandardNumber)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-info" data-ng-click="SaveCustomer()">@string.Format("{0}", isEditMode ? "Save Customer" : "Add Customer")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    var pageTitle = '@ViewBag.Title';
+</script>

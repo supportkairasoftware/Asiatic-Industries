@@ -1,0 +1,236 @@
+﻿@model AsiaticIndustries.Core.Models.Entity.User
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+@using ClassifiedNation.Core.Infrastructure.Utility
+
+@{
+    bool isEditMode = Model.UserID > 0;
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, isEditMode ? SessionHelper.UserID == Model.UserID ? "My Account" : "Edit User" : "Add User");
+    Layout = null;
+}
+@Html.Hidden("UserModel", Common.SerializeObject(Model))
+
+<div class="col-lg-8">
+    <section class="panel">
+        <header class="panel-heading">
+            @string.Format("{0}", isEditMode ? SessionHelper.UserID == Model.UserID ? "My Account" : "Edit User" : "Add User")
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal" id="frmAddUser" role="form">
+                <div class="form-group">
+                    @Html.LabelFor(a => a.FirstName, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.FirstName, new
+                   {
+                       data_ng_model = "UserModel.FirstName",
+                       @class = "form-control",
+                       name = "FirstName",
+                       placeholder = "First Name",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "50"
+                   })
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(a => a.LastName, new { @class = "col-lg-2 col-sm-2 control-label required" })
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(m => m.LastName, new
+                            {
+                                data_ng_model = "UserModel.LastName",
+                                @class = "form-control",
+                                name = "LastName",
+                                placeholder = "Last Name",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "50"
+                            })
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                </div>
+                
+                 @if (SessionHelper.SelectedRole.RoleID == Constants.Role_Admin)
+                 {
+                     <div class="form-group">
+                         @Html.LabelFor(a => a.HostName, new {@class = "col-lg-2 col-sm-2 control-label required"})
+                         <div class="col-lg-9">
+                             @Html.TextBoxFor(m => m.HostName, new
+                                 {
+                                     data_ng_model = "UserModel.HostName",
+                                     @class = "form-control",
+                                     name = "HostName",
+                                     placeholder = "Host Name",
+                                     focus = "true",
+                                     spacenotonfirst = "",
+                                     maxlength = "100"
+                                 })
+                             @Html.ValidationMessageFor(m => m.HostName)
+                         </div>
+                     </div>
+
+                     <div class="form-group">
+                         @Html.LabelFor(a => a.Email, new {@class = "col-lg-2 col-sm-2 control-label required"})
+                         <div class="col-lg-9">
+                             @Html.TextBoxFor(m => m.Email, new
+                                 {
+                                     data_ng_model = "UserModel.Email",
+                                     @class = "form-control",
+                                     name = "Email",
+                                     placeholder = "Email",
+                                     focus = "true",
+                                     spacenotonfirst = "",
+                                     maxlength = "50"
+                                 })
+                             @Html.ValidationMessageFor(m => m.Email)
+                         </div>
+                     </div>
+
+                     if (isEditMode)
+                     {
+                         <div class="form-group">
+                             @Html.LabelFor(a => a.TempEditPassword, new {@class = "col-lg-2 col-sm-2 control-label"})
+                             <div class="col-lg-9">
+                                 @Html.PasswordFor(m => m.TempEditPassword, new
+                                     {
+                                         data_ng_model = "UserModel.TempEditPassword",
+                                         @class = "form-control",
+                                         placeholder = "Password",
+                                         name = "Password",
+                                         spacenotonfirst = "",
+                                         maxlength = "100"
+                                     })
+                                 @Html.ValidationMessageFor(m => m.TempEditPassword)
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             @Html.LabelFor(a => a.ConfirmEditPassword, new {@class = "col-lg-2 col-sm-2 control-label"})
+                             <div class="col-lg-9">
+                                 @Html.PasswordFor(m => m.ConfirmEditPassword, new
+                                     {
+                                         data_ng_model = "UserModel.ConfirmEditPassword",
+                                         @class = "form-control",
+                                         placeholder = "Confirm Password",
+                                         name = "ConfirmPassword",
+                                         spacenotonfirst = "",
+                                         maxlength = "100"
+                                     })
+                                 @Html.ValidationMessageFor(m => m.ConfirmEditPassword)
+                             </div>
+                         </div>
+
+                     }
+                     else
+                     {
+                         <div class="form-group">
+                             @Html.LabelFor(a => a.TempAddPassword, new {@class = "col-lg-2 col-sm-2 control-label required"})
+                             <div class="col-lg-9">
+                                 @Html.PasswordFor(m => m.TempAddPassword, new
+                                     {
+                                         data_ng_model = "UserModel.TempAddPassword",
+                                         @class = "form-control",
+                                         placeholder = "Password",
+                                         name = "Password",
+                                         spacenotonfirst = "",
+                                         maxlength = "100"
+                                     })
+                                 @Html.ValidationMessageFor(m => m.TempAddPassword)
+                             </div>
+                         </div>
+
+                         <div class="form-group">
+                             @Html.LabelFor(a => a.ConfirmAddPassword, new {@class = "col-lg-2 col-sm-2 control-label required"})
+                             <div class="col-lg-9">
+                                 @Html.PasswordFor(m => m.ConfirmAddPassword, new
+                                     {
+                                         data_ng_model = "UserModel.ConfirmAddPassword",
+                                         @class = "form-control",
+                                         placeholder = "Confirm Password",
+                                         name = "ConfirmPassword",
+                                         spacenotonfirst = "",
+                                         maxlength = "100"
+                                     })
+                                 @Html.ValidationMessageFor(m => m.ConfirmAddPassword)
+                             </div>
+                         </div>
+                     }
+                 }
+                     <div class="form-group">
+                         @Html.LabelFor(a => a.Phone, new {@class = "col-lg-2 col-sm-2 control-label"})
+                         <div class="col-lg-9">
+                             @Html.TextAreaFor(m => m.Phone, new
+                                 {
+                                     data_ng_model = "UserModel.Phone",
+                                     @class = "form-control",
+                                     rows = "3",
+                                     name = "Phone",
+                                     placeholder = "Phone",
+                                     focus = "true",
+                                     spacenotonfirst = "",
+                                     maxlength = "200"
+                                 })
+                             @Html.ValidationMessageFor(m => m.Phone)
+                         </div>
+                     </div>
+                 
+                <div class="form-group">
+                    @Html.LabelFor(a => a.Address, new { @class = "col-lg-2 col-sm-2 control-label" })
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(m => m.Address, new
+                   {
+                       data_ng_model = "UserModel.Address",
+                       @class = "form-control",
+                       rows = "5",
+                       name = "Address",
+                       placeholder = "Address",
+                       focus = "true",
+                       spacenotonfirst = "",
+                       maxlength = "200"
+                   })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                </div>
+                
+                @if (isEditMode && SessionHelper.UserID==Model.UserID)
+                { 
+                     <div class="form-group">
+                        @Html.LabelFor(a => a.RoleID, new {@class = "col-lg-2 col-sm-2 control-label"})
+                        <div class="col-lg-9">
+                           <div class="padding-top-5"><b>@Model.RoleName</b></div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(a => a.RoleID, new {@class = "col-lg-2 col-sm-2 control-label"})
+                        <div class="col-lg-9">
+                            @Html.DropDownListFor(m => m.RoleID, Model.ListOfRole.ToSelectList(Model.RoleID.ToString(), "RoleName", "RoleID", "Select Role", ""), new
+                                {
+                                    @class = "form-control",
+                                    value = "{{UserModel.RoleID}}",
+                                    data_ng_init = "UserModel.RoleID=UserModel.RoleID=='0'?null:UserModel.RoleID",
+                                    data_ng_model = "UserModel.RoleID"
+
+                                })
+                            @Html.ValidationMessageFor(m => m.RoleID)
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        
+                        <button type="submit" class="btn btn-info" data-ng-click="SaveUser()">@string.Format("{0}",isEditMode && SessionHelper.UserID==Model.UserID?"Update Profile": isEditMode ? "Save User" : "Add User")</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    var pageTitle = '@ViewBag.Title';
+</script>

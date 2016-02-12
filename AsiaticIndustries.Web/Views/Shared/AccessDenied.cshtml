@@ -1,0 +1,26 @@
+﻿@using AsiaticIndustries.Core.Resources
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "AccessDenied");
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <h2>Forbidden</h2>
+            <p class="margin-top-5">You are not permitted to access this page</p>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="text-center">Oops!</h1>
+            <img class="img-responsive center-block" src="~/Assets/images/403.png" />
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <p class="margin-top-15">Please inform the administrator of how you got here, if you think this was a mistake.</p>
+           <a href="/"><span class="btn btn-primary">Back to Home Page</span></a>
+        </div>
+    </div>
+</div>
+

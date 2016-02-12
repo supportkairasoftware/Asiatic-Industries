@@ -1,0 +1,123 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.DashboardModel
+@using AsiaticIndustries.Core.Resources
+@using AsiaticIndustries.Core.Models.ViewModel
+@using AsiaticIndustries.Core.Infrastructure
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "Dashboard");
+    Layout = null;
+    int count = 0;
+}
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-red"><i class="fa fa-users"></i></span>
+                <div class="sm-st-info">
+                    <span>@Model.TotalActiveUsers</span>
+                    Total User
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-violet"><i class="fa fa-users"></i></span>
+                <div class="sm-st-info">
+                    <span>@Model.TotalActiveCustomer</span>
+                    Total Customer
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sm-st clearfix">
+                <span class="sm-st-icon st-blue"><i class="fa fa-flask"></i></span>
+                <div class="sm-st-info">
+                    <span>@Model.TotalActiveProductSample</span>
+                    Total Sample
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    @if (Model.USDMasterList.Count > 0)
+    {
+        <div id="jqChart" style="width: 100%; height: 370px;" class="margin-bottom-5"></div>
+    }
+    <div class="row margin-top-20">
+        @if (Model.CustomerList.Count > 0)
+        {
+            <div class="col-md-6">
+                <section class="panel">
+                    <header class="panel-heading font-white" style="background-color: #7266ba;">
+                        Last 10 Customer List
+                    </header>
+                    <div class="panel-body table-responsive">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                </tr>
+
+                                @foreach (var customer in Model.CustomerList)
+                                {
+                                    count = count + 1;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@customer.FirstName</td>
+                                        <td>@customer.LastName</td>
+                                        <td>@customer.Email</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="panel-footer bg-white">
+                            <a class="btn btn-info btn-sm pull-right" href="@Constants.NgReturnUrl_ListCustomer" style="background-color: #7266ba;">View All Customer</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        }
+        @{  count = 0; }
+        @if (Model.SampleList.Count > 0)
+        {
+            <div class="col-md-6">
+                <section class="panel">
+                    <header class="panel-heading font-white" style="background-color: #23b7e5;">
+                        Last 10 Sample List
+                    </header>
+                    <div class="panel-body table-responsive">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Reference#</th>
+                                    <th>Constraints</th>
+                                </tr>
+                                @foreach (var sample in Model.SampleList)
+                                {
+                                    count = count + 1;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@sample.ProductName</td>
+                                        <td>@sample.ReferenceNumber</td>
+                                        <td>@sample.ProductConstraints</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="panel-footer bg-white">
+                            <a class="btn btn-info btn-sm pull-right" href="@Constants.NgReturnUrl_ListSample" style="background-color: #23b7e5;">View All Sample</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        }
+    </div>
+  
+</section>
+
+

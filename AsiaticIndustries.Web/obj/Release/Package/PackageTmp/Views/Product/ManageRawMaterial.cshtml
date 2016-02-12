@@ -1,0 +1,447 @@
+﻿@model AsiaticIndustries.Core.Models.ViewModel.RawMaterialSearchModel
+@using AsiaticIndustries.Core.Infrastructure
+@using AsiaticIndustries.Core.Resources
+
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resource.AsiaticIndustries, "Raw Material List");
+    Layout = null;
+}
+@Html.Hidden("SearchRawMaterialModel", Common.SerializeObject(Model))
+<div class="col-md-12">
+    <div class="panel">
+        <header class="panel-heading">
+            Raw Material List
+        </header>
+        <div class="panel-body">
+            <div class="row">
+                <form>
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.RawMaterialName, new
+                            {
+                                data_ng_model = "SearchRawMaterialModel.RawMaterialName",
+                                @class = "form-control",
+                                name = "RawMaterialName",
+                                placeholder = "Raw Material Name",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "100"
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        @Html.TextBoxFor(m => m.RawMaterialPrice, new
+                            {
+                                data_ng_model = "SearchRawMaterialModel.RawMaterialPrice",
+                                @class = "form-control",
+                                name = "RawMaterialPrice",
+                                placeholder = "Price",
+                                focus = "true",
+                                spacenotonfirst = "",
+                                maxlength = "13"
+                            })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <button type="submit" data-ng-click="SearchRawMaterialRecords()" class="btn btn-default form-control">Search</button>
+                    </div>
+                </form>
+                <div class="col-md-2 col-xs-12 form-group pull-right">
+                    <a type="submit" class="btn btn-info form-control" href="#/addrawmaterial">Add Raw Material</a>
+                </div>
+            </div>
+
+            <div class="row rawmaterials" data-ng-if="TotalRawMaterialCount > 0">
+                <div class="col-md-4" data-ng-if="TotalRawMaterialCountTable1 > 0">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                @*<th style="width: 10px">#</th>*@
+                                <th>
+                                    <a href="javascript:;" data-ng-click="SortColumn('RawMaterialName')">Name</a>
+                                    <span class="sortorder" data-ng-show="predicate === 'RawMaterialName'" data-ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th>
+                                    <a href="javascript:;" data-ng-click="SortColumn('RawMaterialPrice')">Price</a>
+                                    <span class="sortorder" data-ng-show="predicate === 'RawMaterialPrice'" data-ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th style="width: 45%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody dir-paginate="rawmaterial in RawMaterialList1  | itemsPerPage: PageSize" total-items="TotalRawMaterialCountTable1" current-page="pagination.current" pagination-id="rawmaterial">
+                            <tr data-ng-if="!rawmaterial.IsEditMode" data-ng-attr-class="{{rawmaterial.IsActive?'EnableItem':'DisableItem'}}">
+                                <td>{{rawmaterial.RawMaterialName}}</td>
+                                <td>{{rawmaterial.RawMaterialPrice}}</td>
+                                <td>
+
+                                    <button data-ng-click="EditRawMaterial(rawmaterial)" rel="tooltip" data-placement="top" title="Edit Raw Material"
+                                        class="btn btn-info">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button data-ng-click="EnabledDisabledRawMaterial(rawmaterial)" rel="tooltip" title="{{rawmaterial.IsActive ? 'Disable Raw Material' : 'Enable Raw Material'}}"
+                                        data-placement="top" data-ng-class="{'btn-green': !rawmaterial.IsActive,'btn-danger': rawmaterial.IsActive }" class="btn">
+                                        {{rawmaterial.IsActive ? 'D' : 'E'}}
+                                    </button>
+                                    <button class="btn btn-green show-pop-graph" id="{{'RawMaterialGraphTable1-'+$index}}"
+                                        data-ng-click="ShowGraph(rawmaterial.EncryptedRawMaterialID,'RawMaterialGraphTable1-'+$index,'jqChartTable1'+$index)"  title="Show Graph">
+                                        <i class="fa fa-area-chart"></i>
+                                    </button>
+                                    <div class="graph-popup coreJQChart" id="{{'jqChartTable1'+$index}}">
+                                        <a class="close-graph" data-ng-click="CloseGraph('jqChartTable1'+$index)"><i class="fa fa-close" style="font-size:16px;"></i></a>
+                                        <div  class="jqchart" style="width:300px"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-ng-if="rawmaterial.IsEditMode" data-ng-attr-class="{{rawmaterial.IsActive?'EnableItem':'DisableItem'}}">
+                                <td colspan="3">
+                                    <form id="{{'frmRawMaterialTable1-'+$index}}">
+                                        <div>
+                                            <span class="float-left">
+                                                @Html.TextBoxFor(m => m.TempRawMaterialName, new
+                                            {
+                                                value = "{{rawmaterial.RawMaterialName}}",
+                                                data_ng_model = "rawmaterial.RawMaterialName",
+                                                data_ng_attr_id = "{{ 'RawMaterialNameTable1-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialNameTable1-' + $index }}",
+                                                @class = "form-control",
+                                                name = "RawMaterialName",
+                                                placeholder = "Raw Material Name",
+                                                focus = "true",
+                                                spacenotonfirst = "",
+                                                maxlength = "100",
+                                                style = "width: 115px"
+                                            })
+                                                @Html.ValidationMessageFor(m => m.TempRawMaterialName, "", new
+                                            {
+                                                data_ng_attr_id = "{{ 'RawMaterialNameTable1-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialNameTable1-' + $index }}",
+                                                data_ng_attr_data_valmsg_for = "{{ 'RawMaterialNameTable1-' + $index }}",
+                                            })
+                                            </span>
+                                            <span class="float-left padding-left-5">
+                                                @Html.TextBoxFor(m => m.TempRawMaterialPrice, new
+                                            {
+                                                data_ng_model = "rawmaterial.RawMaterialPrice",
+                                                data_ng_attr_id = "{{ 'RawMaterialPriceTable1-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialPriceTable1-' + $index }}",
+                                                @class = "form-control",
+                                                name = "RawMaterialPrice",
+                                                placeholder = "Price",
+                                                focus = "true",
+                                                spacenotonfirst = "",
+                                                maxlength = "13",
+                                                style = "width: 65px"
+                                            })
+                                                @Html.ValidationMessageFor(m => m.TempRawMaterialPrice, "", new
+                                            {
+                                                data_ng_attr_id = "{{ 'RawMaterialPriceTable1-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialPriceTable1-' + $index }}",
+                                                data_ng_attr_data_valmsg_for = "{{ 'RawMaterialPriceTable1-' + $index }}",
+                                            })
+                                            </span>
+                                            <span class="float-left padding-left-5">
+                                                <button data-ng-click="SaveRawMaterial(rawmaterial,'frmRawMaterialTable1-'+$index)" rel="tooltip" data-placement="top"
+                                                    title="Save Raw Material" type="submit" class="btn btn-info">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                </button>
+                                                <button type="button" data-ng-click="EnabledDisabledRawMaterial(rawmaterial)" rel="tooltip" class="btn"
+                                                    title="{{rawmaterial.IsActive ? 'Disabled Raw Material' : 'Enabled Raw Material'}}"
+                                                    data-placement="top" data-ng-class="{'btn-green': !rawmaterial.IsActive,'btn-danger': rawmaterial.IsActive }">
+                                                    {{rawmaterial.IsActive ? 'D' : 'E'}}
+                                                </button>
+                                                <button class="btn btn-green show-pop-graph" id="{{'RawMaterialGraphTable1-'+$index}}" data-ng-click="ShowGraph(rawmaterial.EncryptedRawMaterialID,'RawMaterialGraphTable1-'+$index)"><i class="fa fa-area-chart"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4" data-ng-if="TotalRawMaterialCountTable2 > 0">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                @*<th style="width: 10px">#</th>*@
+                                <th>
+                                    <a href="javascript:;" data-ng-click="SortColumn('RawMaterialName')">Name</a>
+                                    <span class="sortorder" data-ng-show="predicate === 'RawMaterialName'" data-ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th>
+                                    <a href="javascript:;" data-ng-click="SortColumn('RawMaterialPrice')">Price</a>
+                                    <span class="sortorder" data-ng-show="predicate === 'RawMaterialPrice'" data-ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th style="width: 45%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody dir-paginate="rawmaterial in RawMaterialList2  | itemsPerPage: PageSize" total-items="TotalRawMaterialCountTable2" current-page="pagination.current" pagination-id="rawmaterial">
+                            <tr data-ng-if="!rawmaterial.IsEditMode" data-ng-attr-class="{{rawmaterial.IsActive?'EnableItem':'DisableItem'}}">
+                                <td>{{rawmaterial.RawMaterialName}}</td>
+                                <td>{{rawmaterial.RawMaterialPrice}}</td>
+                                <td>
+                                    <button data-ng-click="EditRawMaterial(rawmaterial)" rel="tooltip" data-placement="top" title="Edit Raw Material"
+                                        class="btn btn-info">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button data-ng-click="EnabledDisabledRawMaterial(rawmaterial)" rel="tooltip" title="{{rawmaterial.IsActive ? 'Disabled Raw Material' : 'Enabled Raw Material'}}"
+                                        data-placement="top" data-ng-class="{'btn-green': !rawmaterial.IsActive,'btn-danger': rawmaterial.IsActive }" class="btn">
+                                        {{rawmaterial.IsActive ? 'D' : 'E'}}
+                                    </button>
+                                    <button class="btn btn-green show-pop-graph" id="{{'RawMaterialGraphTable2-'+$index}}"
+                                        data-ng-click="ShowGraph(rawmaterial.EncryptedRawMaterialID,'RawMaterialGraphTable2-'+$index,'jqChartTable2'+$index)">
+                                        <i class="fa fa-area-chart"></i>
+                                    </button>
+                                    <div class="graph-popup coreJQChart" id="{{'jqChartTable2'+$index}}">
+                                        <a class="close-graph" data-ng-click="CloseGraph('jqChartTable2'+$index)"><i class="fa fa-close" style="font-size:16px;"></i></a>
+                                        <div  class="jqchart" style="width:300px"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-ng-if="rawmaterial.IsEditMode" data-ng-attr-class="{{rawmaterial.IsActive?'EnableItem':'DisableItem'}}">
+                                <td colspan="3">
+                                    <form id="{{'frmRawMaterialTable2-'+$index}}">
+                                        <div>
+                                            <span class="float-left">
+                                                @Html.TextBoxFor(m => m.TempRawMaterialName, new
+                                            {
+                                                value = "{{rawmaterial.RawMaterialName}}",
+                                                data_ng_model = "rawmaterial.RawMaterialName",
+                                                data_ng_attr_id = "{{ 'RawMaterialNameTable2-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialNameTable2-' + $index }}",
+                                                @class = "form-control",
+                                                name = "RawMaterialName",
+                                                placeholder = "Raw Material Name",
+                                                focus = "true",
+                                                spacenotonfirst = "",
+                                                maxlength = "100",
+                                                style = "width: 115px"
+                                            })
+                                                @Html.ValidationMessageFor(m => m.TempRawMaterialName, "", new
+                                            {
+                                                data_ng_attr_id = "{{ 'RawMaterialNameTable2-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialNameTable2-' + $index }}",
+                                                data_ng_attr_data_valmsg_for = "{{ 'RawMaterialNameTable2-' + $index }}",
+                                            })
+                                            </span>
+                                            <span class="float-left padding-left-5">
+                                                @Html.TextBoxFor(m => m.TempRawMaterialPrice, new
+                                            {
+                                                data_ng_model = "rawmaterial.RawMaterialPrice",
+                                                data_ng_attr_id = "{{ 'RawMaterialPriceTable2-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialPriceTable2-' + $index }}",
+                                                @class = "form-control",
+                                                name = "RawMaterialPrice",
+                                                placeholder = "Price",
+                                                focus = "true",
+                                                spacenotonfirst = "",
+                                                maxlength = "13",
+                                                style = "width: 65px"
+                                            })
+                                                @Html.ValidationMessageFor(m => m.TempRawMaterialPrice, "", new
+                                            {
+                                                data_ng_attr_id = "{{ 'RawMaterialPriceTable2-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialPriceTable2-' + $index }}",
+                                                data_ng_attr_data_valmsg_for = "{{ 'RawMaterialPriceTable2-' + $index }}",
+                                            })
+                                            </span>
+                                            <span class="float-left padding-left-5">
+                                                <button data-ng-click="SaveRawMaterial(rawmaterial,'frmRawMaterialTable2-'+$index)" rel="tooltip" data-placement="top"
+                                                    title="Save Raw Material" type="submit" class="btn btn-info">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                </button>
+                                                <button type="button" data-ng-click="EnabledDisabledRawMaterial(rawmaterial)" rel="tooltip" class="btn"
+                                                    title="{{rawmaterial.IsActive ? 'Disabled Raw Material' : 'Enabled Raw Material'}}"
+                                                    data-placement="top" data-ng-class="{'btn-green': !rawmaterial.IsActive,'btn-danger': rawmaterial.IsActive }">
+                                                    {{rawmaterial.IsActive ? 'D' : 'E'}}
+                                                </button>
+                                                <button class="btn btn-green show-pop-graph" id="{{'RawMaterialGraphTable2-'+$index}}" data-ng-click="ShowGraph(rawmaterial.EncryptedRawMaterialID,'RawMaterialGraphTable2-'+$index)"><i class="fa fa-area-chart"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4" data-ng-if="TotalRawMaterialCountTable3 > 0">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                @*<th style="width: 10px">#</th>*@
+                                <th>
+                                    <a href="javascript:;" data-ng-click="SortColumn('RawMaterialName')">Name</a>
+                                    <span class="sortorder" data-ng-show="predicate === 'RawMaterialName'" data-ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th>
+                                    <a href="javascript:;" data-ng-click="SortColumn('RawMaterialPrice')">Price</a>
+                                    <span class="sortorder" data-ng-show="predicate === 'RawMaterialPrice'" data-ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th style="width: 45%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody dir-paginate="rawmaterial in RawMaterialList3  | itemsPerPage: PageSize" total-items="TotalRawMaterialCountTable3" current-page="pagination.current" pagination-id="rawmaterial">
+                            <tr data-ng-if="!rawmaterial.IsEditMode" data-ng-attr-class="{{rawmaterial.IsActive?'EnableItem':'DisableItem'}}">
+                                <td>{{rawmaterial.RawMaterialName}}</td>
+                                <td>{{rawmaterial.RawMaterialPrice}}</td>
+                                <td>
+                                    <button data-ng-click="EditRawMaterial(rawmaterial)" rel="tooltip" data-placement="top" title="Edit Raw Material"
+                                        class="btn btn-info">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button data-ng-click="EnabledDisabledRawMaterial(rawmaterial)" rel="tooltip" title="{{rawmaterial.IsActive ? 'Disabled Raw Material' : 'Enabled Raw Material'}}"
+                                        data-placement="top" data-ng-class="{'btn-green': !rawmaterial.IsActive,'btn-danger': rawmaterial.IsActive }" class="btn">
+                                        {{rawmaterial.IsActive ? 'D' : 'E'}}
+                                    </button>
+                                    <button class="btn btn-green show-pop-graph" id="{{'RawMaterialGraphTable3-'+$index}}"
+                                        data-ng-click="ShowGraph(rawmaterial.EncryptedRawMaterialID,'RawMaterialGraphTable3-'+$index,'jqChartTable3'+$index)">
+                                        <i class="fa fa-area-chart"></i>
+                                    </button>
+                                    <div class="graph-popup coreJQChart" id="{{'jqChartTable3'+$index}}">
+                                        <a class="close-graph" data-ng-click="CloseGraph('jqChartTable3'+$index)"><i class="fa fa-close" style="font-size:16px;"></i></a>
+                                        <div  class="jqchart" style="width:300px"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-ng-if="rawmaterial.IsEditMode" data-ng-attr-class="{{rawmaterial.IsActive?'EnableItem':'DisableItem'}}">
+                                <td colspan="3">
+                                    <form id="{{'frmRawMaterialTable3-'+$index}}">
+                                        <div>
+                                            <span class="float-left">
+                                                @Html.TextBoxFor(m => m.TempRawMaterialName, new
+                                            {
+                                                value = "{{rawmaterial.RawMaterialName}}",
+                                                data_ng_model = "rawmaterial.RawMaterialName",
+                                                data_ng_attr_id = "{{ 'RawMaterialNameTable3-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialNameTable3-' + $index }}",
+                                                @class = "form-control",
+                                                name = "RawMaterialName",
+                                                placeholder = "Raw Material Name",
+                                                focus = "true",
+                                                spacenotonfirst = "",
+                                                maxlength = "100",
+                                                style = "width: 115px"
+                                            })
+                                                @Html.ValidationMessageFor(m => m.TempRawMaterialName, "", new
+                                            {
+                                                data_ng_attr_id = "{{ 'RawMaterialNameTable3-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialNameTable3-' + $index }}",
+                                                data_ng_attr_data_valmsg_for = "{{ 'RawMaterialNameTable3-' + $index }}",
+                                            })
+                                            </span>
+                                            <span class="float-left padding-left-5">
+                                                @Html.TextBoxFor(m => m.TempRawMaterialPrice, new
+                                            {
+                                                data_ng_model = "rawmaterial.RawMaterialPrice",
+                                                data_ng_attr_id = "{{ 'RawMaterialPriceTable3-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialPriceTable3-' + $index }}",
+                                                @class = "form-control",
+                                                name = "RawMaterialPrice",
+                                                placeholder = "Price",
+                                                focus = "true",
+                                                spacenotonfirst = "",
+                                                maxlength = "13",
+                                                style = "width: 65px"
+                                            })
+                                                @Html.ValidationMessageFor(m => m.TempRawMaterialPrice, "", new
+                                            {
+                                                data_ng_attr_id = "{{ 'RawMaterialPriceTable3-' + $index }}",
+                                                data_ng_attr_name = "{{ 'RawMaterialPriceTable3-' + $index }}",
+                                                data_ng_attr_data_valmsg_for = "{{ 'RawMaterialPriceTable3-' + $index }}",
+                                            })
+                                            </span>
+                                            <span class="float-left padding-left-5">
+                                                <button data-ng-click="SaveRawMaterial(rawmaterial,'frmRawMaterialTable3-'+$index)" rel="tooltip" data-placement="top"
+                                                    title="Save Raw Material" type="submit" class="btn btn-info">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                </button>
+                                                <button type="button" data-ng-click="EnabledDisabledRawMaterial(rawmaterial)" rel="tooltip" class="btn"
+                                                    title="{{rawmaterial.IsActive ? 'Disabled Raw Material' : 'Enabled Raw Material'}}"
+                                                    data-placement="top" data-ng-class="{'btn-green': !rawmaterial.IsActive,'btn-danger': rawmaterial.IsActive }">
+                                                    {{rawmaterial.IsActive ? 'D' : 'E'}}
+                                                </button>
+                                                <button class="btn btn-green show-pop-graph" id="{{'RawMaterialGraphTable3-'+$index}}" data-ng-click="ShowGraph(rawmaterial.EncryptedRawMaterialID,'RawMaterialGraphTable3-'+$index)"><i class="fa fa-area-chart"></i></button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="table-foot">
+                <dir-pagination-controls boundary-links="true" on-page-change="PageChanged(newPageNumber)" pagination-id="rawmaterial"></dir-pagination-controls>
+            </div>
+            <div data-ng-if="TotalRawMaterialCount <= 0" class="alert alert-block alert-danger">
+                No records found.
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+<script type="text/javascript">
+    window.EnableRawMaterial = '@Resource.EnableRawMaterial';
+    window.DisableRawMaterial = '@Resource.DisableRawMaterial';
+    window.SureToEnableRawMaterialMessage = '@Resource.SureToEnableRawMaterialMessage';
+    window.SureToDisableRawMaterialMessage = '@Resource.SureToDisableRawMaterialMessage';
+
+    //$(document).ready(function () {
+    //    google.setOnLoadCallback(drawChart);
+    //    function drawChart() {
+    //        var data = google.visualization.arrayToDataTable([
+    //          ['Year', 'Price Changes'],
+    //          ['2013', 65],
+    //          ['2014', 66],
+    //          ['2015', 80],
+    //          ['2016', 10]
+    //        ]);
+
+    //        var options = {
+    //            title: 'Price Change',
+    //            hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
+    //            vAxis: { minValue: 0 }
+    //        };
+
+    //        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+    //        chart.draw(data, options);
+    //    }
+
+
+    //    var settings = {
+    //        trigger: 'click',
+    //        title: 'Material Price Change Graph',
+    //        content: '',
+    //        width: 320,
+    //        //multi: true,
+    //        closeable: false,
+    //        style: '',
+    //        //delay: 300,
+    //        //padding: true
+    //    };
+
+    //    //var largeContent = $('#chartContent').html(),
+    //    //    largeSettings = {
+    //    //        content: largeContent,
+    //    //        width: 450,
+    //    //        //height: 350,
+    //    //        //delay: { show: 300, hide: 1000 },
+    //    //        closeable: true
+    //    //    };
+
+    //    //$('a.show-pop-graph').webuiPopover('destroy').webuiPopover($.extend({}, settings, largeSettings));
+
+
+    //});
+
+    $(document).on('click', 'a.show-pop-graph', function () {
+        var largeContent = $('#chartContent').html(),
+            largeSettings = {
+                content: largeContent,
+                width: 450,
+                //height: 350,
+                //delay: { show: 300, hide: 1000 },
+                closeable: true
+            };
+        $(this).webuiPopover('destroy').webuiPopover($.extend({}, settings, largeSettings));
+    });
+</script>

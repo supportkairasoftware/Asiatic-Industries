@@ -1,0 +1,83 @@
+﻿@using System.Web.Optimization
+@using AsiaticIndustries.Core.Infrastructure
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="unauthorized" content="true">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="description" content="">
+    <meta name="keywords" content="AsiaticIndustries">
+    @*<link rel='shortcut icon' href='../../favicon.ico' type='image/x-icon' />*@
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <script type="text/javascript">
+        window.PageSize = parseInt('@ConfigSettings.PageSize');
+        window.BasePath = '@ConfigSettings.BasePath';
+    </script>
+
+    @Styles.Render("~/sitelayout/css")
+    @Scripts.Render("~/sitelayout/js")
+    @Scripts.Render("~/assets/js/viewjs/siteapp/controllerjs")
+    @RenderSection("scripts", required: false)
+    <style>
+        body {
+            background-color: #F0F3F4;
+        }
+    </style>
+   
+</head>
+
+<body class="skin-black" data-ng-app="myApp">
+    <span data-us-spinner="{radius:30, width:8, length: 16,scale:0.5}"></span>
+    @Html.Partial("~/Views/Shared/_SiteHeader.cshtml")
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+
+        @Html.Partial("~/Views/Shared/_SiteLeftSideMenu.cshtml")
+
+        <aside class="right-side">
+            @{
+                DateTime startDate = new DateTime(2050, 12, 1);
+                DateTime notificationStartDate = startDate.AddDays(Constants.NotificationStartAfterDay).Date;
+            }
+            @if (startDate.AddDays(Constants.NotificationStartAfterDay).Date <= DateTime.Now.Date)
+            {
+                if (startDate.AddDays(Constants.BlockedUserAfterDay).Date <= DateTime.Now.Date)
+                {
+                    Session.Abandon();
+                    FormsAuthentication.SignOut();
+                    const string loggedOutPageUrl = "/security/logout";
+                    Response.Write("<script language='javascript'>");
+                    Response.Write("function ClearHistory()");
+                    Response.Write("{");
+                    Response.Write(" var backlen=history.length;");
+                    Response.Write(" history.go(-backlen);");
+                    Response.Write(" window.location.href='" + loggedOutPageUrl + "'; ");
+                    Response.Write("}");
+                    Response.Write("</script>");
+                    
+                    
+                   Response.Redirect("~/security/logout");
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Alert!</strong> Your licence is going to expire on <span class="alert-link">@notificationStartDate.ToString("MMM dd, yyyy")</span>.To keep your account active, please renew your license.
+                   
+                    </div>
+                }
+            }
+            <section class="content" style="min-height: 500px;">
+                @RenderBody()
+            </section>
+        </aside>
+
+        @Html.Partial("~/Views/Shared/_SiteFooter.cshtml")
+    </div>
+</body>
+
+<script type="text/javascript">
+    window.LoggedINUserID = '@SessionHelper.UserID';
+</script>
+</html>
